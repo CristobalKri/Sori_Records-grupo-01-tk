@@ -1,4 +1,4 @@
-package com.example.sori_records_grupo01tk.ui.theme
+package com.example.sori_records_grupo01tk.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,9 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 // import androidx.compose.material3.rememberTopAppBarState
 import com.example.sori_records_grupo01tk.R
+import com.example.sori_records_grupo01tk.ui.theme.Purple40
+import com.example.sori_records_grupo01tk.ui.theme.Purple80
+import com.example.sori_records_grupo01tk.ui.theme.PurpleGrey40
 
 val colorStops = arrayOf(
     0.0f to Purple80,
