@@ -72,7 +72,9 @@ fun LoginScreen() {
             ) {
                 Text("Iniciar sesión")
             }
+
             HorizontalDivider(thickness = 2.dp)
+
             Button(
                 onClick = {/*TODO*/},
                 modifier = Modifier.fillMaxWidth(),
