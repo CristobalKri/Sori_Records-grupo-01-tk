@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             Sori_RecordsGrupo01TKTheme {
                 Scaffold { innerPadding ->
                     Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        AppNavigation()
+                        HomeScreen()
                     }
                 }
                 }
