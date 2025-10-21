@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -49,7 +51,6 @@ fun CaruselCard(){
     val sliderList = listOf(
         R.drawable.logo,
         R.drawable.logo,
-        R.drawable.logo,
         R.drawable.logo
     )
     val scope = rememberCoroutineScope()
@@ -61,7 +62,7 @@ fun CaruselCard(){
             count = sliderList.size,
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 65.dp),
-            modifier = Modifier.height(350.dp)
+            modifier = Modifier.height(150.dp)
         ) {
                 page->
             Card(
@@ -107,9 +108,9 @@ fun CaruselCard(){
                     if (pagerState.currentPage == it) Color.DarkGray else Color.LightGray
                 Box(
                     modifier = Modifier
-                        .padding(2.dp)
+                        .padding(5.dp)
                         .clip(CircleShape)
-                        .size(20.dp)
+                        .size(10.dp)
                         .background(color)
                         .clickable{
                             scope.launch {
