@@ -1,6 +1,5 @@
 package com.example.sori_records_grupo01tk.ui.components
 
-import android.R.attr.text
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,11 +8,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -24,10 +23,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sori_records_grupo01tk.ui.screens.Album
+import com.example.sori_records_grupo01tk.ui.theme.details
+import com.example.sori_records_grupo01tk.ui.theme.textBack
 
 data class Album(val id: Int, val title: String, val artista: String, val cover: Int, val precio: Int )
 
@@ -39,7 +39,11 @@ fun AlbumCard(album: Album){
             .width(170.dp)
             .padding(6.dp)
             .height(250.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = details,
+            contentColor = textBack
+        )
     ){
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,16 +18,21 @@ import com.example.sori_records_grupo01tk.ui.screens.HomeScreenCompact
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreenExpand
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.navigation.AppNavigation
+import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
+import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Sori_RecordsGrupo01TKTheme {
-                Scaffold { innerPadding ->
+            Sori_RecordsGrupo01TKTheme(
+                darkTheme = isSystemInDarkTheme(),
+                dynamicColor = false
+            ) {
+                Scaffold (){ innerPadding ->
                     Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        HomeScreen()
+                        LoginScreen()
                     }
                 }
                 }

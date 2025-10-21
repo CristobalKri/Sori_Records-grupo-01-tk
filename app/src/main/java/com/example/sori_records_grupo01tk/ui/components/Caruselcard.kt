@@ -92,7 +92,7 @@ fun CaruselCard(){
                     .scale(Scale.FILL)
                     .build()
                     , contentDescription = null
-                    , error = painterResource(id = R.drawable.logo)
+                    , error = painterResource(id = R.drawable.img_error)
                 )
             }
         }

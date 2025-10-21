@@ -22,7 +22,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun RegistroScreen(
