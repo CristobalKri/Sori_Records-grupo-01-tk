@@ -67,8 +67,8 @@ fun LoginScreen() {
                 onClick = {/*TODO*/},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = details,
-                    contentColor = textBack)
+                    containerColor = SecondaryColor,
+                    contentColor = TextOnDark)
             ) {
                 Text("Iniciar sesión")
             }
@@ -79,8 +79,8 @@ fun LoginScreen() {
                 onClick = {/*TODO*/},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = details,
-                    contentColor = textBack)
+                    containerColor = SecondaryColor,
+                    contentColor = TextOnDark)
             ) {
                 Text("Crear cuenta")
             }

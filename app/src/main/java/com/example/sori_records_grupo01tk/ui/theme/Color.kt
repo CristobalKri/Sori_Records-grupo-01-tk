@@ -4,15 +4,10 @@ import androidx.compose.ui.graphics.Color
 
 
 // Colores deseados
-val textBack = Color(0xFF230F08)
-
-val backText = Color(0xFFE5E0D8)
-
-val button = Color(0xFF6A7D5B)
-
-val button2 = Color(0xFF8A1919)
-
-val details = Color(0xFFB48954)
-
-val details2 = Color(0xFF755835)
-
+val PrimaryColor = Color(0xFF6A7D5B)
+val SecondaryColor = Color(0xFFB48954)
+val BackgroundDark = Color(0xFF230F08)
+val BackgroundLight = Color(0xFFE5E0D8)
+val TextOnDark = Color(0xFFFFF8F0)
+val TextOnLight = Color(0xFF230F08)
+val ErrorColor = Color(0xFF8A1919)

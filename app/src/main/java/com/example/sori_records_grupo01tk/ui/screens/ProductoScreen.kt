@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.Footer
-import com.example.sori_records_grupo01tk.ui.theme.backText
-import com.example.sori_records_grupo01tk.ui.theme.details
+import com.example.sori_records_grupo01tk.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +50,7 @@ fun ProductoScreen(album: Album) {
                 Text(album.artista, fontSize = 16.sp)
                 Text(
                     "$${album.precio}",
-                    color = Color.White ,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -69,8 +68,8 @@ fun ProductoScreen(album: Album) {
                 Button(
                     onClick = { /* TODO */ },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = details,
-                        contentColor = backText
+                        containerColor = SecondaryColor,
+                        contentColor = TextOnDark
                     )
                 ) {
                     Text("Agregar al carrito")
@@ -99,8 +98,8 @@ fun ProductoScreen(album: Album) {
                         shape = RoundedCornerShape(8.dp),
                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = details,
-                            contentColor = backText
+                            containerColor = SecondaryColor,
+                            contentColor = TextOnDark
                         )
                     ) {
                         Box(

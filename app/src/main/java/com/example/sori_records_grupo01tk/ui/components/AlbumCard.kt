@@ -24,8 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sori_records_grupo01tk.model.Album
-import com.example.sori_records_grupo01tk.ui.theme.details
-import com.example.sori_records_grupo01tk.ui.theme.textBack
+import com.example.sori_records_grupo01tk.ui.theme.*
 
 data class Album(val id: Int, val title: String, val artista: String, val cover: Int, val precio: Int,
                  val descri: String )
@@ -41,8 +40,8 @@ fun AlbumCard(album: Album){
             .height(250.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = details,
-            contentColor = textBack
+            containerColor = SecondaryColor,
+            contentColor = TextOnDark
         )
     ){
         Column (
