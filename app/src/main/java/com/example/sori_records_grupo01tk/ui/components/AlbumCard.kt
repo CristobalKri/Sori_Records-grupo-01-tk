@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,13 +23,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.*
 
-data class Album(val id: Int, val title: String, val artista: String, val cover: Int, val precio: Int,
-                 val descri: String )
 
 @Composable
 fun AlbumCard(album: Album){
@@ -38,7 +38,7 @@ fun AlbumCard(album: Album){
         modifier = Modifier
             .width(170.dp)
             .padding(6.dp)
-            .height(250.dp),
+            .height(280.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
             containerColor = SecondaryColor,
@@ -47,8 +47,9 @@ fun AlbumCard(album: Album){
     ){
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.padding(8.dp)
+                .fillMaxHeight()
         ){
             Image(
                 painter = painterResource(id = album.cover),
@@ -60,7 +61,7 @@ fun AlbumCard(album: Album){
                     .clip(RoundedCornerShape(8.dp))
             )
 
-            Text(album.title, fontWeight = FontWeight.Bold, maxLines = 1)
+            Text(album.title, fontWeight = FontWeight.Bold, maxLines = 2, textAlign = TextAlign.Center)
             Text(
                 text = "$${album.precio}",
                 fontWeight = FontWeight.SemiBold,
@@ -73,8 +74,8 @@ fun AlbumCard(album: Album){
                 onClick = {/*TODO*/},
                 shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
-                    .height(32.dp)
-                    .width(120.dp) ,
+                    .height(35.dp)
+                    .width(150.dp) ,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = PrimaryColor,
                     contentColor = TextOnDark

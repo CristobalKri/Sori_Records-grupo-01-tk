@@ -26,12 +26,12 @@ import com.example.sori_records_grupo01tk.ui.components.Footer
 
 
 val Albums = listOf(
-    Album(1, "holi", "holi2", R.drawable.logo, 15990, "blablbalbalbla"),
-    Album(2,"holi3","holi4",R.drawable.logo, 15990,  "blablbalbalbla"),
-    Album(3,"holifd","holi4",R.drawable.logo, 15990,  "blablbalbalbla"),
-    Album(4,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla"),
-    Album(5,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla"),
-    Album(6,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla"),
+    Album(1, "holi", "holi2", R.drawable.logo, 15990, "blablbalbalbla", tipo = "CD"),
+    Album(2,"holi3","holi4",R.drawable.logo, 15990,  "blablbalbalbla", tipo = "CD"),
+    Album(3,"holifd","holi4",R.drawable.logo, 15990,  "blablbalbalbla", tipo = "CD"),
+    Album(4,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla", tipo = "CD"),
+    Album(5,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla", tipo = "CD"),
+    Album(6,"holisdf","holi4",R.drawable.logo, 15990,  "blablbalbalbla", tipo = "CD"),
 )
 
 

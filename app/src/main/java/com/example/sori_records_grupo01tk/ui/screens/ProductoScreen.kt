@@ -46,7 +46,12 @@ fun ProductoScreen(album: Album) {
 
         item {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(album.title, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(album.title, fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
+
+                Spacer(modifier = Modifier.height(12.dp))
+                HorizontalDivider(thickness = 2.dp)
+                Spacer(modifier = Modifier.height(12.dp))
+
                 Text(album.artista, fontSize = 16.sp)
                 Text(
                     "$${album.precio}",
