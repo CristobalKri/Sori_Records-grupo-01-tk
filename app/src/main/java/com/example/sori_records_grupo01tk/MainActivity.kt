@@ -31,7 +31,14 @@ class MainActivity : ComponentActivity() {
             ) {
                 Scaffold (){ innerPadding ->
                     Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        LoginScreen()
+                        ProductoScreen(Album(
+                            id = 1,
+                            precio = 15000,
+                            title = "MBF",
+                            descri = "blbalbalbla",
+                            cover = R.drawable.sab_mbf_cassette,
+                            artista = "Sabrina Carpenter"
+                        ))
                     }
                 }
                 }
