@@ -15,10 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
-import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
-import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
-import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
-import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
+import com.example.sori_records_grupo01tk.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,35 +26,8 @@ class MainActivity : ComponentActivity() {
                 darkTheme = isSystemInDarkTheme(),
                 dynamicColor = false
             ) {
-                Scaffold (){ innerPadding ->
-                    Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        ProductoScreen(Album(
-                            id = 1,
-                            precio = 15000,
-                            title = "MBF",
-                            descri = "blbalbalbla",
-                            cover = R.drawable.sab_mbf_cassette,
-                            artista = "Sabrina Carpenter"
-                        ))
-                    }
-                }
-                }
+                AppNavigation()
+            }
             }
         }
     }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Sori_RecordsGrupo01TKTheme {
-        Greeting("Android")
-    }
-}
