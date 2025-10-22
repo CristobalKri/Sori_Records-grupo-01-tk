@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
+import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
+import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 
 class MainActivity : ComponentActivity() {
@@ -29,16 +31,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 Scaffold (){ innerPadding ->
                     Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        ProductoScreen(
-                            Album(
-                                id = 1,
-                                title = "Disco ejemplo",
-                                artista = "Artista Demo",
-                                cover = R.drawable.logo,
-                                precio = 15990,
-                                descri = "blabalbalba"
-                            )
-                        )
+                        LoginScreen()
                     }
                 }
                 }

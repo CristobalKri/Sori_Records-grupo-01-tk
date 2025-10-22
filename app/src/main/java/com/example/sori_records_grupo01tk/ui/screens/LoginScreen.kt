@@ -17,6 +17,10 @@ import com.example.sori_records_grupo01tk.ui.theme.*
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @Composable
@@ -35,15 +39,40 @@ fun LoginScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
+            Box(
                 modifier = Modifier
-                    .height(120.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-            )
+                    .height(180.dp)
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo_2),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.White),
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxWidth()
+                        .graphicsLayer {
+                            alpha = 0.3f
+                            translationY = 20f
+                            shadowElevation = 0f
+                            shape = RoundedCornerShape(12.dp)
+                            clip = false
+                        }
+                        .blur(20.dp)
+                )
+
+
+                Image(
+                    painter = painterResource(id = R.drawable.logo_2),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(180.dp)
+                        .fillMaxWidth()
+                )
+            }
 
             OutlinedTextField(
                 value = user,
@@ -67,7 +96,7 @@ fun LoginScreen() {
                 onClick = {/*TODO*/},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SecondaryColor,
+                    containerColor = PrimaryColor,
                     contentColor = TextOnDark)
             ) {
                 Text("Iniciar sesión")
@@ -79,7 +108,7 @@ fun LoginScreen() {
                 onClick = {/*TODO*/},
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SecondaryColor,
+                    containerColor = ErrorColor,
                     contentColor = TextOnDark)
             ) {
                 Text("Crear cuenta")
