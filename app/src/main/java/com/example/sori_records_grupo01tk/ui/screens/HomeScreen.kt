@@ -18,6 +18,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.times
+import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.R
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.AlbumCard
@@ -37,7 +38,9 @@ val Albums = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController
+) {
 
     Scaffold(
         topBar = {
@@ -96,10 +99,4 @@ fun HomeScreen() {
 
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }

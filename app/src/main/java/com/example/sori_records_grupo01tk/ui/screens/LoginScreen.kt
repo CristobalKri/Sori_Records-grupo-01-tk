@@ -21,10 +21,13 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    navController: NavController
+) {
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sori_records_grupo01tk.datos.AlbumsList.albums
 import com.example.sori_records_grupo01tk.model.Album
+import com.example.sori_records_grupo01tk.navigation.AppNavigation
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
@@ -32,28 +33,8 @@ class MainActivity : ComponentActivity() {
                 darkTheme = isSystemInDarkTheme(),
                 dynamicColor = false
             ) {
-                Scaffold (){ innerPadding ->
-                    Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        ProductoScreen(album = album)
-                    }
-                }
+                AppNavigation()
                 }
             }
         }
     }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Sori_RecordsGrupo01TKTheme {
-        Greeting("Android")
-    }
-}

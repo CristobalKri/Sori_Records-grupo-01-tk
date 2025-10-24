@@ -16,13 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductoScreen(album: Album) {
+fun ProductoScreen(
+    navController: NavController,
+    album: Album) {
 
     val tiendas = listOf("Sori Records 1", "Sori Records 2", "Sori Records 3")
 
