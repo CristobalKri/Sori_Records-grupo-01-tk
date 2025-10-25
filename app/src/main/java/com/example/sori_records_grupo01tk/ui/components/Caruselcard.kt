@@ -49,9 +49,10 @@ import kotlin.math.absoluteValue
 fun CaruselCard(){
     val pagerState = rememberPagerState(initialPage = 2)
     val sliderList = listOf(
-        R.drawable.logo,
-        R.drawable.logo,
-        R.drawable.logo
+        R.drawable.beom,
+        R.drawable.sabrina_lolla,
+        R.drawable.banner_halloween,
+        R.drawable.sab_joe
     )
     val scope = rememberCoroutineScope()
     Column(
@@ -61,7 +62,7 @@ fun CaruselCard(){
         HorizontalPager(
             count = sliderList.size,
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 65.dp),
+            contentPadding = PaddingValues(horizontal = 10.dp),
             modifier = Modifier.height(150.dp)
         ) {
                 page->
