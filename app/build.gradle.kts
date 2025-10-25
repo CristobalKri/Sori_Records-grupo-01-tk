@@ -44,7 +44,7 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.15")
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation("androidx.compose.material3:material3:1.4.0")
     implementation("com.google.accompanist:accompanist-pager:0.20.0")
     implementation("androidx.compose.ui:ui-util:1.9.3")
     implementation("io.coil-kt:coil-compose:2.2.2")

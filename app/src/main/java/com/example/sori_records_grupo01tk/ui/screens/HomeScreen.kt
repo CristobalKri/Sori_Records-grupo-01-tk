@@ -56,7 +56,7 @@ fun HomeScreen(
             item {
                 Text(text = "Bienvenido!")
                 Button(
-                    onClick = { /* acción futura */ },
+                    onClick = { navController.navigate("registro") },
                     modifier = Modifier
                         .padding(16.dp)
                 ) {
