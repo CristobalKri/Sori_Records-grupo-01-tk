@@ -78,6 +78,7 @@ fun RegistroScreen(
             },
             modifier = Modifier.fillMaxWidth()
         )
+
         // Campo dirección
         OutlinedTextField(
             value = estado.direccion,
