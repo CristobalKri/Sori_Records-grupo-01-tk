@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,23 +13,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.sori_records_grupo01tk.datos.AlbumsList.albums
+import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
-import com.example.sori_records_grupo01tk.ui.screens.HomeScreenCompact
-import com.example.sori_records_grupo01tk.ui.screens.HomeScreenExpand
+import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
+import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
+import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
+import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
+    val album = albums.first { it.id == 6 }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Sori_RecordsGrupo01TKTheme {
-                Scaffold { innerPadding ->
-                    Box(modifier = Modifier.padding(paddingValues = innerPadding)) {
-                        AppNavigation()
-                    }
-                }
+            Sori_RecordsGrupo01TKTheme(
+                darkTheme = isSystemInDarkTheme(),
+                dynamicColor = false
+            ) {
+                AppNavigation()
                 }
             }
         }
