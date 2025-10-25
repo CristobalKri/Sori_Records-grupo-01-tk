@@ -69,8 +69,15 @@ fun HomeScreen(
                 )
                 HorizontalDivider(thickness = 3.dp)
 
-                Button(onClick = { navController.navigate("registro") }) {
-                    Text("Futura Search bar")
+                Button(onClick = {
+                    navController.navigate("buscador") {
+                        launchSingleTop = true
+                        popUpTo("homescreen") {
+                            inclusive = false
+                        }
+                    }
+                }) {
+                    Text("Buscar Productos")
                 }
 
                 CaruselCard()

@@ -28,6 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
+import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
@@ -168,6 +169,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 }
                 composable("pagoC") {
                     PagoCompletado()
+                }
+                composable("buscador") {
+                    Buscador(albums = AlbumsList.albums, navController = navController)
                 }
             }
         }
