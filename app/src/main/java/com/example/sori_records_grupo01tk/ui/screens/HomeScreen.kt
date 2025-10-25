@@ -43,11 +43,6 @@ fun HomeScreen(
 ) {
 
     Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Sori Records",
-                fontWeight = FontWeight.Bold) }
-            )
-        }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier

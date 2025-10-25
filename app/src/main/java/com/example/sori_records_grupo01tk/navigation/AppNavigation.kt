@@ -2,17 +2,12 @@ package com.example.sori_records_grupo01tk.navigation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -24,8 +19,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
+import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
-import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import kotlinx.coroutines.launch
 
@@ -36,6 +31,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -56,6 +52,30 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                             navController.navigate("resumen")
                             drawerState.close()
                         }
+                    },
+                    onNavigateToHomeScreen = {
+                        scope.launch {
+                            navController.navigate("homescreen")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToCatalagoV = {
+                        scope.launch {
+                            navController.navigate("vinilos")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToCatalagoCD = {
+                        scope.launch {
+                            navController.navigate("cds")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToCatalagoC = {
+                        scope.launch {
+                            navController.navigate("cassette")
+                            drawerState.close()
+                        }
                     }
                 )
             }
@@ -64,6 +84,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         Scaffold(
             topBar = {
                 TopBar(
+                    title = "Sori Records" ,
                     onOpenDrawer = {
                         scope.launch {
                             drawerState.apply {
@@ -88,6 +109,15 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 composable("resumen") {
                     ResumenScreen(usuarioViewModel)
                 }
+                composable("vinilos") {
+                    Catalogot("Vinilo")
+                }
+                composable("cds") {
+                    Catalogot("CD")
+                }
+                composable("cassette") {
+                    Catalogot("Cassette")
+                }
             }
         }
     }
@@ -97,14 +127,30 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 fun DrawerContent(
     modifier: Modifier = Modifier,
     onNavigateToRegistro: () -> Unit,
-    onNavigateToResumen: () -> Unit
+    onNavigateToResumen: () -> Unit,
+    onNavigateToHomeScreen: () -> Unit,
+    onNavigateToCatalagoV: () -> Unit,
+    onNavigateToCatalagoCD: () -> Unit,
+    onNavigateToCatalagoC: () -> Unit
 ) {
     Column(modifier = modifier) {
         Button(onClick = onNavigateToRegistro) {
-            Text("Go to Registro")
+            Text("Registro")
         }
         Button(onClick = onNavigateToResumen) {
-            Text("Go to Resumen")
+            Text("Resumen")
+        }
+        Button(onClick = onNavigateToHomeScreen) {
+            Text("Home")
+        }
+        Button(onClick = onNavigateToCatalagoV) {
+            Text("Vinilos")
+        }
+        Button(onClick = onNavigateToCatalagoCD) {
+            Text("CDs")
+        }
+        Button(onClick = onNavigateToCatalagoC) {
+            Text("Cassettes")
         }
     }
 }

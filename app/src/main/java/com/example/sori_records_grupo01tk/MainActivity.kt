@@ -15,13 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sori_records_grupo01tk.datos.AlbumsList.albums
 import com.example.sori_records_grupo01tk.model.Album
-import com.example.sori_records_grupo01tk.navigation.AppNavigation
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
+import com.example.sori_records_grupo01tk.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
     val album = albums.first { it.id == 6 }
@@ -38,3 +38,19 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    Sori_RecordsGrupo01TKTheme {
+        Greeting("Android")
+    }
+}
