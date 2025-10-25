@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")

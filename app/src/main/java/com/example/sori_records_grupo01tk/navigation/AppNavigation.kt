@@ -24,12 +24,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
 import com.example.sori_records_grupo01tk.ui.screens.CarritoScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
+import com.example.sori_records_grupo01tk.ui.screens.LoadingScreen
+import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
+import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import kotlinx.coroutines.launch
@@ -126,16 +130,29 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     ResumenScreen(usuarioViewModel)
                 }
                 composable("vinilos") {
-                    Catalogot("Vinilo")
+                    Catalogot("Vinilo",navController )
                 }
                 composable("cds") {
-                    Catalogot("CD")
+                    Catalogot("CD", navController)
                 }
                 composable("cassette") {
-                    Catalogot("Cassette")
+                    Catalogot("Cassette", navController)
+                }
+                composable("producto/{albumId}") { backStackEntry ->
+                    val albumId = backStackEntry.arguments?.getString("albumId").toString()
+                    val albump = AlbumsList.albums.find { it.id.equals(albumId) }
+                    albump?.let{
+                        ProductoScreen(navController, albump)
+                    }
                 }
                 composable("carrito") {
                     CarritoScreen(navController)
+                }
+                composable("loading") {
+                    LoadingScreen(navController)
+                }
+                composable("pagoC") {
+                    PagoCompletado()
                 }
             }
         }
@@ -156,7 +173,7 @@ fun DrawerContent(
 
 
     val topAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = PrimaryColor, // Your primary color
+        containerColor = PrimaryColor,
         titleContentColor = MaterialTheme.colorScheme.onPrimary,
         navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
     )

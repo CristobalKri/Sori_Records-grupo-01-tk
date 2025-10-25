@@ -103,7 +103,7 @@ fun CarritoScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
-                onClick = { /* TODO */ },
+                onClick = { navController.navigate("loading")},
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(50.dp),

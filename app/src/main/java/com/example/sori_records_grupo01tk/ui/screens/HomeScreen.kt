@@ -98,7 +98,7 @@ fun HomeScreen(
             }
         }
         items(randomAlbums) { album ->
-            AlbumCard(album) }
+            AlbumCard(album, navController=navController) }
 
 
         //OFERTAS
@@ -121,7 +121,7 @@ fun HomeScreen(
             }
         }
         items(baratos) { album ->
-            AlbumCard(album) }
+            AlbumCard(album,navController=navController) }
 
 
         //Nuevos Vinilos
@@ -144,7 +144,7 @@ fun HomeScreen(
             }
         }
         items(lastVinilos) { album ->
-            AlbumCard(album) }
+            AlbumCard(album,navController=navController) }
 
         //Nuevos CDs
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -166,7 +166,7 @@ fun HomeScreen(
             }
         }
         items(lastCDs) { album ->
-            AlbumCard(album) }
+            AlbumCard(album,navController=navController) }
 
         //Nuevos Cassettes
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -188,7 +188,7 @@ fun HomeScreen(
             }
         }
         items(lastCassettes) { album ->
-            AlbumCard(album) }
+            AlbumCard(album,navController=navController) }
 
 
         //FOOTER

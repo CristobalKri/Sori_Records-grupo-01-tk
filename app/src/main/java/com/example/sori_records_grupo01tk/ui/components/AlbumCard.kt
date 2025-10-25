@@ -26,14 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.*
 
 
 @Composable
-fun AlbumCard(album: Album){
+fun AlbumCard(album: Album,
+              navController: NavController){
     Card(
-        onClick = { /*TODO*/ },
+        onClick = { navController.navigate("producto/{albumId}") },
         shape = RoundedCornerShape(5.dp),
         modifier = Modifier
             .width(170.dp)
