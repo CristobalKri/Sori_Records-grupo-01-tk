@@ -17,6 +17,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -36,12 +39,16 @@ import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
+import com.example.sori_records_grupo01tk.viewmodel.TitleViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
+    val titleViewModel: TitleViewModel = viewModel()
+
+    val title = titleViewModel.currentScreenTitle.value
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -58,42 +65,49 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToRegistro = {
                         scope.launch {
                             navController.navigate("registro")
+                            val title = titleViewModel.updateScreenTitle("Registro")
                             drawerState.close()
                         }
                     },
                     onNavigateToResumen = {
                         scope.launch {
                             navController.navigate("resumen")
+                            val title = titleViewModel.updateScreenTitle("Resumen")
                             drawerState.close()
                         }
                     },
                     onNavigateToHomeScreen = {
                         scope.launch {
                             navController.navigate("homescreen")
+                            val title = titleViewModel.updateScreenTitle("Sori Records")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoV = {
                         scope.launch {
                             navController.navigate("vinilos")
+                            val title = titleViewModel.updateScreenTitle("Vinilos")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoCD = {
                         scope.launch {
                             navController.navigate("cds")
+                            val title = titleViewModel.updateScreenTitle("CDs")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoC = {
                         scope.launch {
                             navController.navigate("cassette")
+                            val title = titleViewModel.updateScreenTitle("Cassettes")
                             drawerState.close()
                         }
                     },
                     onNavigateToCarritoScreen = {
                         scope.launch {
                             navController.navigate("carrito")
+                            val title = titleViewModel.updateScreenTitle("Carrito")
                             drawerState.close()
                         }
                     }
@@ -102,9 +116,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
     ) {
         Scaffold(
+
             topBar = {
                 TopBar(
-                    title = "Sori Records" ,
+                    title = title,
                     onOpenDrawer = {
                         scope.launch {
                             drawerState.apply {
@@ -172,23 +187,16 @@ fun DrawerContent(
 ) {
 
 
-    val topAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = PrimaryColor,
-        titleContentColor = MaterialTheme.colorScheme.onPrimary,
-        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
-    )
 
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(topAppBarColors.containerColor)
             .padding(16.dp)
     ){
         Text(
             text = "Sori Records",
             modifier = Modifier.padding(16.dp),
-            color = topAppBarColors.titleContentColor,
 
         )
     }
