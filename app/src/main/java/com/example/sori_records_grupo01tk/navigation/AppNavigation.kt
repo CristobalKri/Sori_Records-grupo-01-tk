@@ -18,6 +18,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.ui.components.Buscador
@@ -68,56 +70,48 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToRegistro = {
                         scope.launch {
                             navController.navigate("registro")
-                            val title = titleViewModel.updateScreenTitle("Registro")
                             drawerState.close()
                         }
                     },
                     onNavigateToResumen = {
                         scope.launch {
                             navController.navigate("resumen")
-                            val title = titleViewModel.updateScreenTitle("Resumen")
                             drawerState.close()
                         }
                     },
                     onNavigateToHomeScreen = {
                         scope.launch {
                             navController.navigate("homescreen")
-                            val title = titleViewModel.updateScreenTitle("Sori Records")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoV = {
                         scope.launch {
                             navController.navigate("vinilos")
-                            val title = titleViewModel.updateScreenTitle("Vinilos")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoCD = {
                         scope.launch {
                             navController.navigate("cds")
-                            val title = titleViewModel.updateScreenTitle("CDs")
                             drawerState.close()
                         }
                     },
                     onNavigateToCatalagoC = {
                         scope.launch {
                             navController.navigate("cassette")
-                            val title = titleViewModel.updateScreenTitle("Cassettes")
                             drawerState.close()
                         }
                     },
                     onNavigateToCarritoScreen = {
                         scope.launch {
                             navController.navigate("carrito")
-                            val title = titleViewModel.updateScreenTitle("Carrito")
                             drawerState.close()
                         }
                     },
                     onNavigateToLoginScreen = {
                         scope.launch {
                             navController.navigate("login")
-                            val title = titleViewModel.updateScreenTitle("Login")
                             drawerState.close()
                         }
                     }
@@ -128,6 +122,20 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         Scaffold(
 
             topBar = {
+
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = navBackStackEntry?.destination?.route
+                val title = when (currentDestination) {
+                    "homescreen" -> "Sori Records"
+                    "registro" -> "Registro"
+                    "vinilos" -> "Vinilos"
+                    "cds" -> "CDs"
+                    "casette" -> "Casettes"
+                    "carrito" -> "Carrito"
+                    "login" -> "Login"
+                    else -> "Error Title"
+                }
+
                 TopBar(
                     title = title,
                     onOpenDrawer = {

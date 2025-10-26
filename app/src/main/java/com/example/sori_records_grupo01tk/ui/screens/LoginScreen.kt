@@ -24,24 +24,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.collectAsState
+
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
-import com.example.sori_records_grupo01tk.viewmodel.TitleViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 @Composable
 fun LoginScreen(
     navController: NavController,
-    viewModel: UsuarioViewModel = viewModel()
+    viewModel: UsuarioViewModel = viewModel(),
 ) {
-
-    var user by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
 
     val estadoLogin by viewModel.login.collectAsState()
 
-    val titleViewModel: TitleViewModel = viewModel()
-    val title = titleViewModel.currentScreenTitle.value
 
 
 
@@ -118,7 +113,7 @@ fun LoginScreen(
                     if (viewModel.validarLogin()) {
                         Log.d("Login success", "Login yeah")
                         navController.navigate("homescreen")
-                        val title = titleViewModel.updateScreenTitle("Sori Records")
+
                     } else {
                         Log.d("Login fail", "Noooooo")
                     }
