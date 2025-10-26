@@ -35,7 +35,7 @@ import com.example.sori_records_grupo01tk.ui.theme.*
 fun AlbumCard(album: Album,
               navController: NavController){
     Card(
-        onClick = { navController.navigate("producto/{albumId}") },
+        onClick = { navController.navigate("producto/${album.id}") },
         shape = RoundedCornerShape(5.dp),
         modifier = Modifier
             .width(170.dp)

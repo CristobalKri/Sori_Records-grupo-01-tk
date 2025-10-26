@@ -1,6 +1,7 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
 import android.graphics.Bitmap
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sori_records_grupo01tk.ui.utils.guardarImagen
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
@@ -29,6 +32,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 fun PagoCompletado(){
     val qrInfo = "Compra exitosa #${(10000..40000).random()}"
     val qrBitmap = remember{ generateQR(qrInfo) }
+    val context = LocalContext.current
 
     Column (modifier = Modifier
         .fillMaxSize()
@@ -67,9 +71,20 @@ fun PagoCompletado(){
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        Button(onClick ={/*TODO*/}){
+        Button(onClick = {
+            qrBitmap?.let {
+                guardarImagen(context, it, "codigo_qr_${System.currentTimeMillis()}")
+
+                Toast.makeText(
+                    context,
+                    "Imagen guardada en la galería",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }) {
             Text("Guardar QR")
         }
+
     }
 }
 

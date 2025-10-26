@@ -28,6 +28,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
+import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
 import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
@@ -44,6 +45,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
+
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
     val titleViewModel: TitleViewModel = viewModel()
@@ -154,10 +156,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     Catalogot("Cassette", navController)
                 }
                 composable("producto/{albumId}") { backStackEntry ->
-                    val albumId = backStackEntry.arguments?.getString("albumId").toString()
-                    val albump = AlbumsList.albums.find { it.id.equals(albumId) }
-                    albump?.let{
-                        ProductoScreen(navController, albump)
+                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
+                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
+                    album?.let {
+                        ProductoScreen(navController = navController, album = it)
                     }
                 }
                 composable("carrito") {
@@ -168,6 +170,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 }
                 composable("pagoC") {
                     PagoCompletado()
+                }
+                composable("buscador") {
+                    Buscador(albums = AlbumsList.albums, navController = navController)
                 }
             }
         }

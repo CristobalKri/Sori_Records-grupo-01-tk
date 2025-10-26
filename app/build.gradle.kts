@@ -41,9 +41,9 @@ android {
 
 dependencies {
 
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")
-    implementation("com.google.accompanist:accompanist-permissions:0.30.1")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("androidx.compose.material3:material3:1.4.0")
     implementation("com.google.accompanist:accompanist-pager:0.20.0")

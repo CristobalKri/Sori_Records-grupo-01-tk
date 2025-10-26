@@ -9,11 +9,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.sori_records_grupo01tk.model.Usuario
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 @Composable
-fun ResumenScreen(viewModel: UsuarioViewModel) {
+fun ResumenScreen(
+    viewModel: UsuarioViewModel
+) {
     val estado by viewModel.estado.collectAsState()
+
+
+
+
 
     Column(Modifier.padding(all = 16.dp)) {
         Text(text = "Resumen del Registro", style = MaterialTheme.typography.headlineMedium)
