@@ -1,6 +1,7 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
 import android.graphics.Bitmap
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -73,6 +74,12 @@ fun PagoCompletado(){
         Button(onClick = {
             qrBitmap?.let {
                 guardarImagen(context, it, "codigo_qr_${System.currentTimeMillis()}")
+
+                Toast.makeText(
+                    context,
+                    "Imagen guardada en la galería",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }) {
             Text("Guardar QR")
