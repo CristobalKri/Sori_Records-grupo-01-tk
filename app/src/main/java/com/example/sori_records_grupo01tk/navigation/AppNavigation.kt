@@ -45,6 +45,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
+
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
     val titleViewModel: TitleViewModel = viewModel()
@@ -155,10 +156,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     Catalogot("Cassette", navController)
                 }
                 composable("producto/{albumId}") { backStackEntry ->
-                    val albumId = backStackEntry.arguments?.getString("albumId").toString()
-                    val albump = AlbumsList.albums.find { it.id.equals(albumId) }
-                    albump?.let{
-                        ProductoScreen(navController, albump)
+                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
+                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
+                    album?.let {
+                        ProductoScreen(navController = navController, album = it)
                     }
                 }
                 composable("carrito") {

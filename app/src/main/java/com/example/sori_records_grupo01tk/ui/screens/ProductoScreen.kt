@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
@@ -28,6 +29,7 @@ fun ProductoScreen(
     album: Album) {
 
     val tiendas = listOf("Sori Records 1", "Sori Records 2", "Sori Records 3")
+
 
     LazyColumn(
         modifier = Modifier
@@ -49,7 +51,12 @@ fun ProductoScreen(
 
         item {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(album.title, fontWeight = FontWeight.Bold, fontSize = 20.sp, textAlign = TextAlign.Center)
+                Text(
+                    album.title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center
+                )
 
                 Spacer(modifier = Modifier.height(12.dp))
                 HorizontalDivider(thickness = 2.dp)
@@ -148,7 +155,7 @@ fun ProductoScreen(
             }
         }
 
-        item{
+        item {
             Footer()
         }
     }

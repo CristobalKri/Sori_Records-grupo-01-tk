@@ -1,6 +1,9 @@
 package com.example.sori_records_grupo01tk.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.sori_records_grupo01tk.model.UsuarioErrores
 import com.example.sori_records_grupo01tk.model.UsuarioUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,11 +13,19 @@ import kotlin.collections.isNotEmpty
 import kotlin.compareTo
 import kotlin.text.contains
 import kotlin.text.isBlank
+import com.example.sori_records_grupo01tk.datos.UserDataStore
+import com.example.sori_records_grupo01tk.model.Usuario
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
-class UsuarioViewModel  : ViewModel() {
+class UsuarioViewModel(application: Application)  : AndroidViewModel(application) {
 
     private val _estado = MutableStateFlow(value = UsuarioUiState())
     val estado: StateFlow<UsuarioUiState> = _estado
+
+
+
 
     fun onNombreChange(valor: String) {
         _estado.update { it.copy(nombre = valor, errores = it.errores.copy(nombre = null)) }

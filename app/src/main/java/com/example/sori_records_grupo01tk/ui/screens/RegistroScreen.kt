@@ -36,7 +36,7 @@ fun RegistroScreen(
             .padding(all = 16.dp),
         verticalArrangement = Arrangement.spacedBy(space = 12.dp)
     ) {
-        // Campo nombre
+        // Nombre
         OutlinedTextField(
             value = estado.nombre,
             onValueChange = viewModel::onNombreChange,
@@ -50,7 +50,7 @@ fun RegistroScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Campo correo
+        // Correo
         OutlinedTextField(
             value = estado.correo,
             onValueChange = viewModel::onCorreoChange,
@@ -64,7 +64,7 @@ fun RegistroScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Campo clave
+        // Clave
         OutlinedTextField(
             value = estado.clave,
             onValueChange = viewModel::onClaveChange,
@@ -79,7 +79,7 @@ fun RegistroScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Campo dirección
+        // Direccion
         OutlinedTextField(
             value = estado.direccion,
             onValueChange = viewModel::onDireccionChange,
@@ -93,7 +93,7 @@ fun RegistroScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Checkbox: aceptar términos
+        // Terminos (Checkbox)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = estado.aceptaTerminos,
