@@ -36,6 +36,7 @@ import com.example.sori_records_grupo01tk.ui.screens.CarritoScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoadingScreen
+import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
@@ -112,6 +113,13 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                             val title = titleViewModel.updateScreenTitle("Carrito")
                             drawerState.close()
                         }
+                    },
+                    onNavigateToLoginScreen = {
+                        scope.launch {
+                            navController.navigate("login")
+                            val title = titleViewModel.updateScreenTitle("Login")
+                            drawerState.close()
+                        }
                     }
                 )
             }
@@ -174,6 +182,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 composable("buscador") {
                     Buscador(albums = AlbumsList.albums, navController = navController)
                 }
+                composable("login") {
+                    LoginScreen(navController, usuarioViewModel)
+                }
             }
         }
     }
@@ -188,7 +199,8 @@ fun DrawerContent(
     onNavigateToCatalagoV: () -> Unit,
     onNavigateToCatalagoCD: () -> Unit,
     onNavigateToCatalagoC: () -> Unit,
-    onNavigateToCarritoScreen: () -> Unit
+    onNavigateToCarritoScreen: () -> Unit,
+    onNavigateToLoginScreen: () -> Unit
 ) {
 
 
@@ -256,6 +268,8 @@ fun DrawerContent(
         onClick = { onNavigateToCatalagoCD() }
     )
 
+    Spacer(modifier = Modifier.height(4.dp))
+
     NavigationDrawerItem(
         label = {
             Text(
@@ -267,6 +281,8 @@ fun DrawerContent(
         onClick = { onNavigateToCatalagoC() }
     )
 
+    Spacer(modifier = Modifier.height(4.dp))
+
     NavigationDrawerItem(
         label = {
             Text(
@@ -276,6 +292,19 @@ fun DrawerContent(
         },
         selected = false,
         onClick = { onNavigateToCarritoScreen() }
+    )
+
+    Spacer(modifier = Modifier.height(4.dp))
+
+    NavigationDrawerItem(
+        label = {
+            Text(
+                text = "Login",
+                modifier = Modifier.padding(16.dp)
+            )
+        },
+        selected = false,
+        onClick = { onNavigateToLoginScreen() }
     )
 }
 

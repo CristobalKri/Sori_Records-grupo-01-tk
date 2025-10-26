@@ -4,7 +4,7 @@ import com.example.sori_records_grupo01tk.model.Usuario
 
 object UserList{
 
-    val users = listOf(
+    var users = mutableListOf<Usuario>(
         Usuario(
             nombre = "Nombre1",
             clave =  "Clave123",
@@ -18,4 +18,9 @@ object UserList{
             direccion = "Direccion blahblahblah 2"
         )
     )
+
+    fun addUser(usuario: Usuario) {
+        users.add(usuario)
+    }
+
 }

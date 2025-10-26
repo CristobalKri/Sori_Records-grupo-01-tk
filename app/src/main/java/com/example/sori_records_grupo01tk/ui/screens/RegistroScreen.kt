@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.sori_records_grupo01tk.datos.UserList
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.model.Usuario
 
@@ -108,12 +110,16 @@ fun RegistroScreen(
         Button(
             onClick = {
                 if (viewModel.validarFormulario()) {
-                    Usuario(
-                        estado.nombre,
-                        estado.clave,
-                        estado.correo,
-                        estado.direccion
+                    val newUser = Usuario(
+                        nombre = estado.nombre,
+                        clave = estado.clave,
+                        correo = estado.correo,
+                        direccion = estado.direccion
                     )
+                    UserList.addUser(newUser)
+
+                    Log.d("NewUser added", "New User ${newUser.nombre}, ${newUser.correo}, ${newUser.correo}")
+
                     navController.navigate(route = "resumen")
                 }
             },
