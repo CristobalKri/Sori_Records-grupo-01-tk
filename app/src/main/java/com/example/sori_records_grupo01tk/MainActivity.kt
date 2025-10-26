@@ -22,6 +22,7 @@ import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.navigation.AppNavigation
+import com.example.sori_records_grupo01tk.ui.utils.SolicitarUbicacion
 
 class MainActivity : ComponentActivity() {
     val album = albums.first { it.id == 6 }
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
                 darkTheme = isSystemInDarkTheme(),
                 dynamicColor = false
             ) {
+                SolicitarUbicacion()
                 AppNavigation()
                 }
             }
