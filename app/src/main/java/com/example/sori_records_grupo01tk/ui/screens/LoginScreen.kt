@@ -28,6 +28,7 @@ import com.example.sori_records_grupo01tk.ui.components.Footer
 fun LoginScreen(
     navController: NavController
 ) {
+
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

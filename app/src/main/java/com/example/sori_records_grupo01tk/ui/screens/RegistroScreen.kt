@@ -22,6 +22,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
+import com.example.sori_records_grupo01tk.model.Usuario
 
 @Composable
 fun RegistroScreen(
@@ -107,6 +108,12 @@ fun RegistroScreen(
         Button(
             onClick = {
                 if (viewModel.validarFormulario()) {
+                    Usuario(
+                        estado.nombre,
+                        estado.clave,
+                        estado.correo,
+                        estado.direccion
+                    )
                     navController.navigate(route = "resumen")
                 }
             },
