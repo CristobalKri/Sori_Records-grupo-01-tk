@@ -1,6 +1,7 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
@@ -36,7 +38,7 @@ fun LoginScreen(
 
     val estadoLogin by viewModel.login.collectAsState()
     val isLoggedIn = loginviewModel.booleanValue.collectAsState()
-
+    val context = LocalContext.current
 
 
 
@@ -115,7 +117,11 @@ fun LoginScreen(
                         navController.navigate("homescreen")
 
                     } else {
-                        Log.d("Login fail", "Noooooo")
+                        Toast.makeText(
+                            context,
+                            "Usuario y/o contaseña incorrecta",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
