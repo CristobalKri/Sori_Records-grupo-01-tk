@@ -144,7 +144,7 @@ fun AppNavigation(
                     "casette" -> "Casettes"
                     "carrito" -> "Carrito"
                     "login" -> "Login"
-                    "perfil" -> "perfil"
+                    "perfil" -> "Perfil"
                     else -> "Error Title"
                 }
 
