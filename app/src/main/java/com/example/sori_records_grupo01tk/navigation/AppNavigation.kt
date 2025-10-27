@@ -40,6 +40,7 @@ import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoadingScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
+import com.example.sori_records_grupo01tk.ui.screens.PerfilScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
@@ -112,6 +113,12 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToLoginScreen = {
                         scope.launch {
                             navController.navigate("login")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToPerfilScreen = {
+                        scope.launch {
+                            navController.navigate("perfil")
                             drawerState.close()
                         }
                     }
@@ -193,6 +200,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 composable("login") {
                     LoginScreen(navController, usuarioViewModel)
                 }
+                composable("perfil") {
+                    PerfilScreen(navController)
+                }
             }
         }
     }
@@ -208,7 +218,8 @@ fun DrawerContent(
     onNavigateToCatalagoCD: () -> Unit,
     onNavigateToCatalagoC: () -> Unit,
     onNavigateToCarritoScreen: () -> Unit,
-    onNavigateToLoginScreen: () -> Unit
+    onNavigateToLoginScreen: () -> Unit,
+    onNavigateToPerfilScreen: () -> Unit
 ) {
 
 
@@ -313,6 +324,19 @@ fun DrawerContent(
         },
         selected = false,
         onClick = { onNavigateToLoginScreen() }
+    )
+
+    Spacer(modifier = Modifier.height(4.dp))
+
+    NavigationDrawerItem(
+        label = {
+            Text(
+                text = "Perfil",
+                modifier = Modifier.padding(16.dp)
+            )
+        },
+        selected = false,
+        onClick = { onNavigateToPerfilScreen() }
     )
 }
 

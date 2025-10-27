@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.datos.UserList
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.model.Usuario
+import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @Composable
 fun RegistroScreen(
@@ -127,5 +128,6 @@ fun RegistroScreen(
         ) {
             Text(text = "Registrar")
         }
+        Footer()
     }
     }

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.sori_records_grupo01tk.model.Usuario
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
+import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @Composable
 fun ResumenScreen(
@@ -30,5 +31,6 @@ fun ResumenScreen(
         Text(text = "Contraseña: ${"*".repeat(n = estado.clave.length)}")
         Text(text = "Términos: ${if (estado.aceptaTerminos) "Aceptados" else "No aceptados"}")
     }
+    Footer()
 }
 

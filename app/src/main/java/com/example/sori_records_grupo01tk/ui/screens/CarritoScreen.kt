@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.theme.BackgroundDark
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
+import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -115,6 +116,7 @@ fun CarritoScreen(
             ) {
                 Text("Proceder al pago", fontSize = 16.sp)
             }
+            Footer()
         }
     }
 }
