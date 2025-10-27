@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,15 +22,22 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.collectAsState
+
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
+import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: UsuarioViewModel = viewModel(),
 ) {
-    var user by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+
+    val estadoLogin by viewModel.login.collectAsState()
+
+
 
 
     Box(
@@ -78,16 +86,21 @@ fun LoginScreen(
             }
 
             OutlinedTextField(
-                value = user,
-                onValueChange = { user = it },
-                label = { Text("Usuario") },
-                singleLine = true,
+                value = estadoLogin.nombre,
+                onValueChange = viewModel::onNombreLoginChange,
+                label = { Text(text = "Usuario") },
+                isError = estadoLogin.errores.nombre != null,
+                supportingText = {
+                    estadoLogin.errores.nombre?.let {
+                        Text(text= it, color = MaterialTheme.colorScheme.error)
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = estadoLogin.clave,
+                onValueChange = viewModel::onClaveLoginChange,
                 label = { Text("Contraseña") },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth()
@@ -96,7 +109,15 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(6.dp))
 
             Button(
-                onClick = {/*TODO*/},
+                onClick = {
+                    if (viewModel.validarLogin()) {
+                        Log.d("Login success", "Login yeah")
+                        navController.navigate("homescreen")
+
+                    } else {
+                        Log.d("Login fail", "Noooooo")
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = PrimaryColor,
@@ -108,7 +129,9 @@ fun LoginScreen(
             HorizontalDivider(thickness = 2.dp)
 
             Button(
-                onClick = {/*TODO*/},
+                onClick = {
+                    navController.navigate("registro")
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = ErrorColor,

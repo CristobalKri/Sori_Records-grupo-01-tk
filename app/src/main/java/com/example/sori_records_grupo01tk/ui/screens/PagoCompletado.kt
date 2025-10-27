@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.sori_records_grupo01tk.ui.utils.guardarImagen
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import com.example.sori_records_grupo01tk.ui.components.Footer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,6 +86,7 @@ fun PagoCompletado(){
             Text("Guardar QR")
         }
 
+        Footer()
     }
 }
 

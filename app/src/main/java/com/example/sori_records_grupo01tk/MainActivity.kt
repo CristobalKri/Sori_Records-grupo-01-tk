@@ -25,7 +25,6 @@ import com.example.sori_records_grupo01tk.navigation.AppNavigation
 import com.example.sori_records_grupo01tk.ui.utils.SolicitarUbicacion
 
 class MainActivity : ComponentActivity() {
-    val album = albums.first { it.id == 6 }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
