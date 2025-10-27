@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -16,10 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.example.sori_records_grupo01tk.R
 import com.example.sori_records_grupo01tk.ui.theme.*
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,15 +24,18 @@ import androidx.compose.runtime.collectAsState
 
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
+import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     viewModel: UsuarioViewModel = viewModel(),
+    loginviewModel: LoginViewModel = viewModel()
 ) {
 
     val estadoLogin by viewModel.login.collectAsState()
+    val isLoggedIn = loginviewModel.booleanValue.collectAsState()
 
 
 
@@ -111,7 +111,7 @@ fun LoginScreen(
             Button(
                 onClick = {
                     if (viewModel.validarLogin()) {
-                        Log.d("Login success", "Login yeah")
+                        loginviewModel.saveBoolean(!isLoggedIn.value)
                         navController.navigate("homescreen")
 
                     } else {

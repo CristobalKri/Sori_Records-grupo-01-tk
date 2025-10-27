@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.navigation
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,21 +45,23 @@ import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
 import com.example.sori_records_grupo01tk.ui.screens.PerfilScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
+import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
-import com.example.sori_records_grupo01tk.viewmodel.TitleViewModel
+import com.example.sori_records_grupo01tk.ui.components.DrawerContent
 import kotlinx.coroutines.launch
 
 @Composable
-fun AppNavigation(modifier: Modifier = Modifier) {
+fun AppNavigation(
+    modifier: Modifier = Modifier,
+) {
 
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
-    val titleViewModel: TitleViewModel = viewModel()
 
-    val title = titleViewModel.currentScreenTitle.value
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
 
 
     ModalNavigationDrawer(
@@ -140,6 +144,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     "casette" -> "Casettes"
                     "carrito" -> "Carrito"
                     "login" -> "Login"
+                    "perfil" -> "perfil"
                     else -> "Error Title"
                 }
 
@@ -207,137 +212,3 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Composable
-fun DrawerContent(
-    modifier: Modifier = Modifier,
-    onNavigateToRegistro: () -> Unit,
-    onNavigateToResumen: () -> Unit,
-    onNavigateToHomeScreen: () -> Unit,
-    onNavigateToCatalagoV: () -> Unit,
-    onNavigateToCatalagoCD: () -> Unit,
-    onNavigateToCatalagoC: () -> Unit,
-    onNavigateToCarritoScreen: () -> Unit,
-    onNavigateToLoginScreen: () -> Unit,
-    onNavigateToPerfilScreen: () -> Unit
-) {
-
-
-
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ){
-        Text(
-            text = "Sori Records",
-            modifier = Modifier.padding(16.dp),
-
-        )
-    }
-
-    HorizontalDivider()
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Home",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToHomeScreen() }
-    )
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Registro",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToRegistro() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Vinilos",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToCatalagoV() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "CDs",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToCatalagoCD() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Casettes",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToCatalagoC() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Carrito",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToCarritoScreen() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Login",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToLoginScreen() }
-    )
-
-    Spacer(modifier = Modifier.height(4.dp))
-
-    NavigationDrawerItem(
-        label = {
-            Text(
-                text = "Perfil",
-                modifier = Modifier.padding(16.dp)
-            )
-        },
-        selected = false,
-        onClick = { onNavigateToPerfilScreen() }
-    )
-}
-
-
