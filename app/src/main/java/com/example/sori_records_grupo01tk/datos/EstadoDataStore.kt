@@ -27,4 +27,5 @@ class EstadoDataStore(private val context: Context) {
             preferencias[ESTADO_ACTIVADO]
         }
     }
+
 }

@@ -21,18 +21,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.datos.UserList
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.model.Usuario
 import com.example.sori_records_grupo01tk.ui.components.Footer
+import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 
 @Composable
 fun RegistroScreen(
     navController: NavController,
-    viewModel: UsuarioViewModel
+    viewModel: UsuarioViewModel,
+    loginViewModel: LoginViewModel = viewModel()
 ) {
     val estado by viewModel.estado.collectAsState()
+    val isLoggedIn = loginViewModel.booleanValue.collectAsState()
 
     Column(
         Modifier
@@ -118,10 +122,9 @@ fun RegistroScreen(
                         direccion = estado.direccion
                     )
                     UserList.addUser(newUser)
-
+                    loginViewModel.saveBoolean(!isLoggedIn.value)
                     Log.d("NewUser added", "New User ${newUser.nombre}, ${newUser.correo}, ${newUser.correo}")
-
-                    navController.navigate(route = "resumen")
+                    navController.navigate(route = "homescreen")
                 }
             },
             modifier = Modifier.fillMaxWidth()

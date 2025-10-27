@@ -66,7 +66,7 @@ fun PagoCompletado(){
 
         Text(
             text = "Guarda el código para retirar tu producto.",
-            fontSize = 30.sp,
+            fontSize = 25.sp,
             textAlign = TextAlign.Center
         )
 
