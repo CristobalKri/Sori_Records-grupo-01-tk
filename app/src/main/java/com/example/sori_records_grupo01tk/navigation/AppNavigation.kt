@@ -141,11 +141,13 @@ fun AppNavigation(
                     "registro" -> "Registro"
                     "vinilos" -> "Vinilos"
                     "cds" -> "CDs"
-                    "casette" -> "Casettes"
+                    "cassette" -> "Cassettes"
                     "carrito" -> "Carrito"
                     "login" -> "Login"
                     "perfil" -> "Perfil"
-                    else -> "Error Title"
+                    "buscador" -> "Buscador"
+                    "producto/{albumId}" -> "Producto"
+                    else -> "Sori Records"
                 }
 
                 TopBar(
