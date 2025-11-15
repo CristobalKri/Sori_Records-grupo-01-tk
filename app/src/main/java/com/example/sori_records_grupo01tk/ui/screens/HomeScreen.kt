@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -34,6 +35,7 @@ import com.example.sori_records_grupo01tk.ui.components.AlbumCard
 import com.example.sori_records_grupo01tk.ui.components.CaruselCard
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
+import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
 
 
 val randomAlbums = AlbumsHomeUtils.randomAlbums(5)
@@ -80,7 +82,9 @@ fun HomeScreen(
                             inclusive = false
                         }
                     }
-                }) {
+                },
+                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
+                        contentColor = TextOnDark)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.Search,

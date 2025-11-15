@@ -1,6 +1,5 @@
 package com.example.sori_records_grupo01tk.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
+import kotlinx.coroutines.Job
 
 @Composable
 fun DrawerContent(
@@ -29,7 +29,8 @@ fun DrawerContent(
     onNavigateToCarritoScreen: () -> Unit,
     onNavigateToLoginScreen: () -> Unit,
     onNavigateToPerfilScreen: () -> Unit,
-    loginviewModel: LoginViewModel = viewModel()
+    loginviewModel: LoginViewModel = viewModel(),
+    onNavigateToAdminScreen: () -> Unit
 ) {
 
     val estadoViewModel: EstadoViewModel = viewModel()
@@ -103,7 +104,18 @@ fun DrawerContent(
 
     }
 
+    Spacer(modifier = Modifier.height(4.dp))
 
+    NavigationDrawerItem(
+        label = {
+            Text(
+                text = "Carrito",
+                modifier = Modifier.padding(16.dp)
+            )
+        },
+        selected = false,
+        onClick = { onNavigateToCarritoScreen() }
+    )
 
 
     NavigationDrawerItem(
@@ -148,12 +160,12 @@ fun DrawerContent(
     NavigationDrawerItem(
         label = {
             Text(
-                text = "Carrito",
+                text = "Acciones admin",
                 modifier = Modifier.padding(16.dp)
             )
         },
         selected = false,
-        onClick = { onNavigateToCarritoScreen() }
+        onClick = { onNavigateToAdminScreen() }
     )
 
     Spacer(modifier = Modifier.height(4.dp))
