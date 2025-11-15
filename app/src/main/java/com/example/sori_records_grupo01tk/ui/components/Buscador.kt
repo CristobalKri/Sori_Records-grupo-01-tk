@@ -14,10 +14,14 @@ import com.example.sori_records_grupo01tk.model.Album
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @Composable
 fun Buscador(albums: List<Album>,
              navController: NavController) {
+
+    val cartViewModel: CartViewModel = viewModel()
 
     var query by remember { mutableStateOf("") }
 
@@ -52,7 +56,7 @@ fun Buscador(albums: List<Album>,
                     .fillMaxWidth()
             ) {
                 items(resultados) { album ->
-                    AlbumCard(album, navController)
+                    AlbumCard(album, navController, cartViewModel)
                 }
             }
         } else if (query.isNotBlank()) {

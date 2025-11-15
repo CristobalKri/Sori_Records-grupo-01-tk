@@ -48,6 +48,7 @@ import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -57,6 +58,7 @@ fun AppNavigation(
 
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
+    val cartViewModel: CartViewModel = viewModel()
 
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -168,7 +170,7 @@ fun AppNavigation(
                 modifier = Modifier.padding(padding)
             ) {
                 composable("homescreen") {
-                    HomeScreen(navController)
+                    HomeScreen(navController, cartViewModel)
                 }
                 composable("registro") {
                     RegistroScreen(navController, usuarioViewModel)
@@ -193,7 +195,7 @@ fun AppNavigation(
                     }
                 }
                 composable("carrito") {
-                    CarritoScreen(navController)
+                    CarritoScreen(navController, cartViewModel)
                 }
                 composable("loading") {
                     LoadingScreen(navController)
