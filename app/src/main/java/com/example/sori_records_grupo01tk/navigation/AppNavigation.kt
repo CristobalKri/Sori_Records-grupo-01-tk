@@ -32,6 +32,8 @@ import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
 import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
 import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
+import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
+import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -115,6 +117,12 @@ fun AppNavigation(
                             navController.navigate("Acciones admin")
                             drawerState.close()
                         }
+                    },
+                    onNavigateToLogoutScreen = {
+                        scope.launch {
+                            navController.navigate("logout")
+                            drawerState.close()
+                        }
                     }
                 )
             }
@@ -185,6 +193,9 @@ fun AppNavigation(
                 composable("carrito") {
                     CarritoScreen(navController)
                 }
+                composable("pago") {
+                    PagoScreen(navController, usuarioViewModel)
+                }
                 composable("loading") {
                     LoadingScreen(navController)
                 }
@@ -199,6 +210,9 @@ fun AppNavigation(
                 }
                 composable("perfil") {
                     PerfilScreen(navController)
+                }
+                composable("logout") {
+                    LogoutScreen(navController)
                 }
                 composable("Acciones admin") {
                     AdminScreen(navController)

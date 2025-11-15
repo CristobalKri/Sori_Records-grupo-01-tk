@@ -47,7 +47,7 @@ fun AdminScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TextButton(onClick = { navController.navigate("addAlbum/cd") },
+                TextButton(onClick = { navController.navigate("addAlbum/CD") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp) ) {
@@ -56,7 +56,7 @@ fun AdminScreen(
 
                 HorizontalDivider(color = Color.DarkGray, thickness = 1.dp)
 
-                TextButton(onClick = { navController.navigate("addAlbum/vinilo") },
+                TextButton(onClick = { navController.navigate("addAlbum/Vinilo") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp) ) {
@@ -65,7 +65,7 @@ fun AdminScreen(
 
                 HorizontalDivider(color = Color.DarkGray, thickness = 1.dp)
 
-                TextButton(onClick = { navController.navigate("addAlbum/cassette") },
+                TextButton(onClick = { navController.navigate("addAlbum/Cassette") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp) ) {
