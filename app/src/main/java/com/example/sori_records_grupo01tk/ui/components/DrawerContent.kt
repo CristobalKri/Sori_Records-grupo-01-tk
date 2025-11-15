@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -44,7 +45,8 @@ fun DrawerContent(
     onNavigateToPerfilScreen: () -> Unit,
     loginviewModel: LoginViewModel = viewModel(),
     onNavigateToAdminScreen: () -> Unit,
-    onNavigateToLogoutScreen: () -> Unit
+    onNavigateToLogoutScreen: () -> Unit,
+    onNavigateToBillboardScreen: () -> Unit
 ) {
 
     val estadoViewModel: EstadoViewModel = viewModel()
@@ -137,6 +139,17 @@ fun DrawerContent(
         onClick = { onNavigateToCarritoScreen() }
     )
 
+    NavigationDrawerItem(
+        label = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.MailOutline, contentDescription = "Billboard")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Billboard")
+            }
+        },
+        selected = false,
+        onClick = { onNavigateToBillboardScreen() }
+    )
 
     NavigationDrawerItem(
         label = {

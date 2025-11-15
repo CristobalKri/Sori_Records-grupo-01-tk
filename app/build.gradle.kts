@@ -41,6 +41,11 @@ android {
 
 dependencies {
 
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")

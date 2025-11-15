@@ -16,6 +16,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
+import com.example.sori_records_grupo01tk.datos.BillboardRepository
+import com.example.sori_records_grupo01tk.datos.RetrofitInstance
 import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
@@ -32,8 +34,10 @@ import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
 import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
 import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
+import com.example.sori_records_grupo01tk.ui.screens.BillboardScreen
 import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -121,6 +125,12 @@ fun AppNavigation(
                     onNavigateToLogoutScreen = {
                         scope.launch {
                             navController.navigate("logout")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToBillboardScreen = {
+                        scope.launch {
+                            navController.navigate("billboard")
                             drawerState.close()
                         }
                     }
@@ -222,6 +232,11 @@ fun AppNavigation(
                     AddAlbum(tipoPre = tipo, onSave = { newAlbum ->
                         /*TODO*/
                     }, navController)
+                }
+                composable("billboard") {
+                    val repository = BillboardRepository(RetrofitInstance.api)
+                    val viewModel = BillboardViewModel(repository)
+                    BillboardScreen(viewModel)
                 }
             }
         }
