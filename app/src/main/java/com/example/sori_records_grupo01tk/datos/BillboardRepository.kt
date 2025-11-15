@@ -24,6 +24,6 @@ class BillboardRepository(private val api: BillboardApi) {
     }
 
     companion object {
-        const val API_KEY = "a91fdf4dd7mshbb262216d38fb57p1e7f55jsn63949740835d"
+        const val API_KEY = "198a81796amsh06d36373bfb8e68p14b57cjsnb1c340146fe9"
     }
 }
