@@ -36,6 +36,7 @@ import com.example.sori_records_grupo01tk.ui.components.CaruselCard
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 
 val randomAlbums = AlbumsHomeUtils.randomAlbums(5)
@@ -48,7 +49,8 @@ val baratos = AlbumsHomeUtils.porPrecio(20000)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    cartViewModel: CartViewModel
 ) {
 
 
@@ -121,7 +123,7 @@ fun HomeScreen(
             }
         }
         items(randomAlbums) { album ->
-            AlbumCard(album, navController=navController) }
+            AlbumCard(album, navController=navController, cartViewModel) }
 
 
         //OFERTAS
@@ -144,7 +146,7 @@ fun HomeScreen(
             }
         }
         items(baratos) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
 
         //Nuevos Vinilos
@@ -167,7 +169,7 @@ fun HomeScreen(
             }
         }
         items(lastVinilos) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
         //Nuevos CDs
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -189,7 +191,7 @@ fun HomeScreen(
             }
         }
         items(lastCDs) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
         //Nuevos Cassettes
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -211,7 +213,7 @@ fun HomeScreen(
             }
         }
         items(lastCassettes) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
 
         //FOOTER

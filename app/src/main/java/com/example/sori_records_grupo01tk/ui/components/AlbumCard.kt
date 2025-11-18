@@ -34,12 +34,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.model.Album
+import com.example.sori_records_grupo01tk.model.CartItem
 import com.example.sori_records_grupo01tk.ui.theme.*
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 
 @Composable
 fun AlbumCard(album: Album,
-              navController: NavController){
+              navController: NavController,
+              cartViewModel: CartViewModel
+){
     Card(
         onClick = { navController.navigate("producto/${album.id}") },
         shape = RoundedCornerShape(5.dp),
@@ -105,7 +109,7 @@ fun AlbumCard(album: Album,
             Spacer(modifier = Modifier.height(6.dp))
 
             Button(
-                onClick = {/*TODO*/},
+                onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio )) },
                 shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
                     .height(35.dp)

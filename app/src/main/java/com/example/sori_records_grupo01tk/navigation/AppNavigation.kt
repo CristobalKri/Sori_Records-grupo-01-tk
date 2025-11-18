@@ -30,6 +30,7 @@ import com.example.sori_records_grupo01tk.ui.screens.PerfilScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
 import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
 import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
@@ -43,6 +44,7 @@ fun AppNavigation(
 
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
+    val cartViewModel: CartViewModel = viewModel()
 
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -166,7 +168,7 @@ fun AppNavigation(
                 modifier = Modifier.padding(padding)
             ) {
                 composable("homescreen") {
-                    HomeScreen(navController)
+                    HomeScreen(navController, cartViewModel)
                 }
                 composable("registro") {
                     RegistroScreen(navController, usuarioViewModel)
@@ -191,7 +193,7 @@ fun AppNavigation(
                     }
                 }
                 composable("carrito") {
-                    CarritoScreen(navController)
+                    CarritoScreen(navController, cartViewModel)
                 }
                 composable("pago") {
                     PagoScreen(navController, usuarioViewModel)
