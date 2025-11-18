@@ -39,6 +39,7 @@ import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.HorizontalDivider
@@ -48,15 +49,19 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.sori_records_grupo01tk.ui.utils.ValidacionesPago
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PagoScreen(
     navController: NavController,
-    usuarioViewModel: UsuarioViewModel = viewModel()
+    usuarioViewModel: UsuarioViewModel = viewModel(),
+    cartViewModel: CartViewModel
 ) {
     val userL = usuarioViewModel.login.collectAsState().value
     val context = LocalContext.current
+    val cartItems = cartViewModel.cartItems
+    val total = cartViewModel.getTotal()
 
     //NO HAY CUENTA
     if (userL.nombre.isBlank()) {
@@ -92,13 +97,6 @@ fun PagoScreen(
         var cvv by remember { mutableStateOf("") }
         var suscripcionPromos by remember { mutableStateOf(false) }
 
-        val items = listOf(
-            "Man's Best Friend D2C Luxe Packaging LP" to 56990,
-            "Short n' Sweet Alternate Cover CD" to 14990,
-            "The Crux Deluxe Cassette" to 19990
-        )
-        val total = items.sumOf { it.second }
-
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
@@ -125,8 +123,11 @@ fun PagoScreen(
                         )
 
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            items.forEach { (nombre, precio) ->
-                                Text("$nombre - $$precio", color = Color.Black)
+                            cartItems.forEach { cartItem ->
+                                Text(
+                                    text = "${cartItem.nombre} - $${cartItem.price}",
+                                    color = Color.Black
+                                )
                             }
                         }
                     }
