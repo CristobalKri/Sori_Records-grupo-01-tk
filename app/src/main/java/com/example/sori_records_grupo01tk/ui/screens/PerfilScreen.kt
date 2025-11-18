@@ -127,10 +127,9 @@ fun PerfilScreen(
 
             Button(
                 onClick = {
-                    Toast.makeText(context,
-                        "Sesión cerrada",
-                        Toast.LENGTH_SHORT)
-                        .show()
+                    navController.navigate("logout") {
+                        popUpTo("perfil") { inclusive = true }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth(),

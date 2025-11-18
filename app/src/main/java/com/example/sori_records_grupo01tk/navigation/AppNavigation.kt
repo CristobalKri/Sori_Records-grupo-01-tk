@@ -31,6 +31,10 @@ import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
 import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
+import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
+import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
+import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
+import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -109,6 +113,18 @@ fun AppNavigation(
                             navController.navigate("perfil")
                             drawerState.close()
                         }
+                    },
+                    onNavigateToAdminScreen = {
+                        scope.launch {
+                            navController.navigate("Acciones admin")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToLogoutScreen = {
+                        scope.launch {
+                            navController.navigate("logout")
+                            drawerState.close()
+                        }
                     }
                 )
             }
@@ -179,6 +195,9 @@ fun AppNavigation(
                 composable("carrito") {
                     CarritoScreen(navController, cartViewModel)
                 }
+                composable("pago") {
+                    PagoScreen(navController, usuarioViewModel)
+                }
                 composable("loading") {
                     LoadingScreen(navController)
                 }
@@ -193,6 +212,18 @@ fun AppNavigation(
                 }
                 composable("perfil") {
                     PerfilScreen(navController)
+                }
+                composable("logout") {
+                    LogoutScreen(navController)
+                }
+                composable("Acciones admin") {
+                    AdminScreen(navController)
+                }
+                composable("addAlbum/{tipo}") { backStackEntry ->
+                    val tipo = backStackEntry.arguments?.getString("tipo") ?: "vinilo"
+                    AddAlbum(tipoPre = tipo, onSave = { newAlbum ->
+                        /*TODO*/
+                    }, navController)
                 }
             }
         }
