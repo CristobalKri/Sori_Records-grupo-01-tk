@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,6 +46,9 @@ fun AlbumCard(album: Album,
               navController: NavController,
               cartViewModel: CartViewModel
 ){
+
+    val context = LocalContext.current
+
     Card(
         onClick = { navController.navigate("producto/${album.id}") },
         shape = RoundedCornerShape(5.dp),
@@ -109,7 +114,12 @@ fun AlbumCard(album: Album,
             Spacer(modifier = Modifier.height(6.dp))
 
             Button(
-                onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio )) },
+                onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio ))
+                    Toast.makeText(
+                        context,
+                        "Agregado al carrito",
+                        Toast.LENGTH_LONG
+                    ).show()},
                 shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
                     .height(35.dp)

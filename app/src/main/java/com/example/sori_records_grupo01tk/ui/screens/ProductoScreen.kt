@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -19,17 +21,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.model.Album
+import com.example.sori_records_grupo01tk.model.CartItem
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductoScreen(
     navController: NavController,
-    album: Album) {
+    album: Album,
+    cartViewModel: CartViewModel) {
 
     val tiendas = listOf("Sori Records 1", "Sori Records 2", "Sori Records 3")
 
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -81,7 +87,12 @@ fun ProductoScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { /* TODO */ },
+                    onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio ))
+                        Toast.makeText(
+                            context,
+                            "Agregado al carrito",
+                            Toast.LENGTH_LONG
+                        ).show()},
                     colors = ButtonDefaults.buttonColors(
                         containerColor = SecondaryColor,
                         contentColor = TextOnDark

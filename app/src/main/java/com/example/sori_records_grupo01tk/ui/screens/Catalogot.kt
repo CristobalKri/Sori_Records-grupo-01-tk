@@ -26,10 +26,10 @@ import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @Composable
 fun Catalogot(tipo:String,
-              navController: NavController)
+              navController: NavController,
+              cartViewModel: CartViewModel)
 {
     val filtrar = albums.filter { it.tipo.equals(tipo) }
-    val cartViewModel: CartViewModel = viewModel()
 
     LazyColumn(
         modifier = Modifier
