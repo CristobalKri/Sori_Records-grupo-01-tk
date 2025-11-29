@@ -38,6 +38,7 @@ import com.example.sori_records_grupo01tk.ui.screens.BillboardScreen
 import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
 import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModelFactory
 import kotlinx.coroutines.launch
 
 @Composable
@@ -48,6 +49,9 @@ fun AppNavigation(
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
 
+    val repository = BillboardRepository(RetrofitInstance.api)
+    val factory = BillboardViewModelFactory(repository)
+    val billboardViewModel: BillboardViewModel = viewModel(factory = factory)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -133,7 +137,8 @@ fun AppNavigation(
                             navController.navigate("billboard")
                             drawerState.close()
                         }
-                    }
+                    },
+                    billboardViewModel = billboardViewModel
                 )
             }
         }
@@ -234,9 +239,7 @@ fun AppNavigation(
                     }, navController)
                 }
                 composable("billboard") {
-                    val repository = BillboardRepository(RetrofitInstance.api)
-                    val viewModel = BillboardViewModel(repository)
-                    BillboardScreen(viewModel)
+                    BillboardScreen(billboardViewModel)
                 }
             }
         }

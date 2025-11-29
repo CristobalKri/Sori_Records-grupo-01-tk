@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
 import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 import kotlinx.coroutines.Job
@@ -46,7 +47,8 @@ fun DrawerContent(
     loginviewModel: LoginViewModel = viewModel(),
     onNavigateToAdminScreen: () -> Unit,
     onNavigateToLogoutScreen: () -> Unit,
-    onNavigateToBillboardScreen: () -> Unit
+    onNavigateToBillboardScreen: () -> Unit,
+    billboardViewModel: BillboardViewModel? = null
 ) {
 
     val estadoViewModel: EstadoViewModel = viewModel()

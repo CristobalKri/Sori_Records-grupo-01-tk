@@ -25,13 +25,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.sori_records_grupo01tk.ui.components.BillboardUiState
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
 
 @Composable
 fun BillboardScreen(viewModel: BillboardViewModel) {
-    val songs by viewModel.topSongs.collectAsState()
-    val chartDate by viewModel.chartDate.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.loadTopSongs()
@@ -53,9 +53,9 @@ fun BillboardScreen(viewModel: BillboardViewModel) {
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
-                if (chartDate.isNotEmpty()) {
+                if (uiState is BillboardUiState.Success) {
                     Text(
-                        text = "Fecha: $chartDate",
+                        text = "Fecha: 00.00.00",
                         style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
                         textAlign = TextAlign.Center
                     )
@@ -66,44 +66,72 @@ fun BillboardScreen(viewModel: BillboardViewModel) {
             }
         }
 
-        if (songs.isEmpty()) {
-            item {
-                Column( modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center ) {
-                    LinearProgressIndicator( modifier = Modifier.fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.primary )
-
-                    Spacer(Modifier.height(8.dp))
-                    Text("Cargando datos, esto puede demorar...", style = MaterialTheme.typography.bodyMedium) }
-            }
-        } else {
-            // Lista billboard
-            items(songs.size) { index ->
-                val song = songs[index]
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = song.rank ?: "-",
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold,
+        when (uiState) {
+            is BillboardUiState.Loading -> {
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        LinearProgressIndicator(
+                            modifier = Modifier.fillMaxWidth(),
                             color = MaterialTheme.colorScheme.primary
-                        ),
-                        modifier = Modifier.width(40.dp)
-                    )
-                    Spacer(Modifier.width(8.dp))
-                    Column {
-                        Text(
-                            text = song.title ?: "",
-                            style = MaterialTheme.typography.titleMedium
                         )
+
+                        Spacer(Modifier.height(8.dp))
                         Text(
-                            text = song.artist ?: "",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray)
+                            "Cargando datos, esto puede demorar...",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
+                }
+            }
+
+            is BillboardUiState.Success -> {
+                // Lista billboard
+                val songs = (uiState as BillboardUiState.Success).songs
+                items(songs.size) { index ->
+                    val song = songs[index]
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = song.rank ?: "-",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.primary
+                            ),
+                            modifier = Modifier.width(40.dp)
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = song.title ?: "",
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Text(
+                                text = song.artist ?: "",
+                                style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray)
+                            )
+                        }
+                    }
+                }
+            }
+            is BillboardUiState.Error -> {
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = (uiState as BillboardUiState.Error).message,
+                            color = Color.Red,
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
