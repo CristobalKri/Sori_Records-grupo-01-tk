@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,14 +28,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
+import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
+import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +48,19 @@ fun PerfilScreen(
     navController: NavController) {
 
     val context = LocalContext.current
+    val usuarioviewModel: UsuarioViewModel = viewModel()
+    val loginViewModel: LoginViewModel = viewModel()
+
+    val usuarioList = usuarioviewModel.usuarioList.collectAsState().value
+    val usuarioId = loginViewModel.numeroValue.value
+    val user = usuarioList.find { it.id?.toInt() == usuarioId }
+
+    if (user == null) {
+        Log.d("User fetch", "User not found, val is null")
+    } else {
+        Log.d("User fetch", "User Found: ${user.nombre}")
+    }
+
 
     Column(
         modifier = Modifier
@@ -63,7 +82,7 @@ fun PerfilScreen(
             Icon(Icons.Default.Face, contentDescription = null)
             Spacer(modifier = Modifier
                 .width(8.dp))
-            Text("userName",
+            Text("${user?.nombre}",
                 style = MaterialTheme.typography.bodyLarge)
         }
 
@@ -71,7 +90,7 @@ fun PerfilScreen(
             Icon(Icons.Default.Email, contentDescription = null)
             Spacer(modifier = Modifier
                 .width(8.dp))
-            Text("userEmail",
+            Text("${user?.correo}",
                 style = MaterialTheme.typography.bodyLarge)
         }
 
@@ -79,7 +98,7 @@ fun PerfilScreen(
             Icon(Icons.Default.Home, contentDescription = null)
             Spacer(modifier = Modifier
                 .width(8.dp))
-            Text("Dirección",
+            Text("${user?.direccion}",
                 style = MaterialTheme.typography.bodyLarge)
         }
 
@@ -87,7 +106,7 @@ fun PerfilScreen(
             Icon(Icons.Default.Lock, contentDescription = null)
             Spacer(modifier = Modifier
                 .width(8.dp))
-            Text("password",
+            Text("${user?.clave}",
                 style = MaterialTheme.typography.bodyLarge)
         }
 

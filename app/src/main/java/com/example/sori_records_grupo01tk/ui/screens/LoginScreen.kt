@@ -114,6 +114,12 @@ fun LoginScreen(
                 onClick = {
                     if (viewModel.validarLogin()) {
                         loginviewModel.saveBoolean(!isLoggedIn.value)
+
+                        val user = viewModel.usuarioList.value.find { it.nombre == estadoLogin.nombre && it.clave == estadoLogin.clave }
+                        loginviewModel.saveInt(user?.id?.toInt())
+
+                        Log.d("Login", "Login id saved as: ${loginviewModel.numeroValue.value}")
+
                         navController.navigate("homescreen")
 
                     } else {

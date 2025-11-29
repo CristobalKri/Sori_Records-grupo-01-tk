@@ -43,7 +43,7 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
                     val response = usuarioRepository.getUsuarios()
                     Log.d("API Response", "Response body: ${response.body()}")
                     response.body()?.let {
-                        Log.d("API Response", it.toString())  // Logs the parsed response
+                        Log.d("API Response", it.toString())
                     }
 
                     if (response.isSuccessful) {
@@ -133,7 +133,15 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
     fun validarLogin(): Boolean {
         val estadoActual = _login.value
 
-        val user = UserList.users.find { it.nombre == estadoActual.nombre && it.clave == estadoActual.clave }
+
+
+        val user = usuarioList.value.find { it.nombre == estadoActual.nombre && it.clave == estadoActual.clave }
+
+        if (user != null) {
+            Log.d("Login", "Login found on: ${user.nombre}")
+        } else {
+            Log.d("Login", "Invalid credentials ${user}")
+        }
 
         val errores = UsuarioErrores(
             nombre = when {

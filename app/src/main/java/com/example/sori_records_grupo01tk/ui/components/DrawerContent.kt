@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 import kotlinx.coroutines.Job
 
@@ -47,10 +46,8 @@ fun DrawerContent(
     onNavigateToLogoutScreen: () -> Unit
 ) {
 
-    val estadoViewModel: EstadoViewModel = viewModel()
     val isLoggedIn = loginviewModel.booleanValue.collectAsState()
 
-    val state = estadoViewModel.activo.collectAsState()
 
 
 

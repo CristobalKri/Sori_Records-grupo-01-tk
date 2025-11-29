@@ -22,7 +22,7 @@ fun UseScreen(usuarioViewModel: UsuarioViewModel) {
 
     LazyColumn {
         items(usuarioList) { usuario ->
-            Text("Name: ${usuario.nombre}, Email: ${usuario.correo}")
+            Text("id: ${usuario.id}, Name: ${usuario.nombre}, Email: ${usuario.correo}, Contraseña: ${usuario.clave}")
         }
     }
 }

@@ -36,10 +36,10 @@ class MainActivity : ComponentActivity() {
                 darkTheme = isSystemInDarkTheme(),
                 dynamicColor = false
             ) {
-                val usuarioViewModel: UsuarioViewModel = viewModel()
-//                SolicitarUbicacion()
-//                AppNavigation()
-                UseScreen(usuarioViewModel)
+                SolicitarUbicacion()
+                AppNavigation()
+/*                val usuarioViewModel: UsuarioViewModel = viewModel()
+                UseScreen(usuarioViewModel)*/
                 }
             }
         }
