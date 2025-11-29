@@ -16,6 +16,7 @@ import kotlin.text.contains
 import kotlin.text.isBlank
 import com.example.sori_records_grupo01tk.datos.UserList
 import com.example.sori_records_grupo01tk.model.Usuario
+import com.example.sori_records_grupo01tk.repository.UsuarioRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -28,6 +29,33 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
     private val _login = MutableStateFlow(value = UsuarioUiState())
     val login: StateFlow<UsuarioUiState> = _login
 
+    private val usuarioRepository = UsuarioRepository()
+    private val _usuarioList = MutableStateFlow<List<Usuario>>(emptyList())
+    val usuarioList: StateFlow<List<Usuario>> = _usuarioList
+
+    init {
+        fetchUsuarios()
+    }
+
+    fun fetchUsuarios() {
+        viewModelScope.launch {
+                try {
+                    val response = usuarioRepository.getUsuarios()
+                    Log.d("API Response", "Response body: ${response.body()}")
+                    response.body()?.let {
+                        Log.d("API Response", it.toString())  // Logs the parsed response
+                    }
+
+                    if (response.isSuccessful) {
+                        _usuarioList.value = response.body() ?: emptyList()
+                    } else {
+                        println("Error: ${response.message()}")
+                    }
+                } catch(e: Exception) {
+                    println("Error al obtener datos: ${e.localizedMessage}")
+                }
+        }
+    }
 
 
 

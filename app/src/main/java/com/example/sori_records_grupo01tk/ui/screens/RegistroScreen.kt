@@ -116,6 +116,7 @@ fun RegistroScreen(
             onClick = {
                 if (viewModel.validarFormulario()) {
                     val newUser = Usuario(
+                        id = 1,
                         nombre = estado.nombre,
                         clave = estado.clave,
                         correo = estado.correo,
