@@ -25,6 +25,7 @@ import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.navigation.AppNavigation
 import com.example.sori_records_grupo01tk.ui.screens.UseScreen
 import com.example.sori_records_grupo01tk.ui.utils.SolicitarUbicacion
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 class MainActivity : ComponentActivity() {
@@ -38,8 +39,8 @@ class MainActivity : ComponentActivity() {
             ) {
                 SolicitarUbicacion()
                 AppNavigation()
-/*                val usuarioViewModel: UsuarioViewModel = viewModel()
-                UseScreen(usuarioViewModel)*/
+/*                val albumViewModel: AlbumViewModel = viewModel()
+                UseScreen(albumViewModel)*/
                 }
             }
         }

@@ -39,21 +39,21 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
 
     fun fetchUsuarios() {
         viewModelScope.launch {
-                try {
-                    val response = usuarioRepository.getUsuarios()
-                    Log.d("API Response", "Response body: ${response.body()}")
-                    response.body()?.let {
-                        Log.d("API Response", it.toString())
-                    }
-
-                    if (response.isSuccessful) {
-                        _usuarioList.value = response.body() ?: emptyList()
-                    } else {
-                        println("Error: ${response.message()}")
-                    }
-                } catch(e: Exception) {
-                    println("Error al obtener datos: ${e.localizedMessage}")
+            try {
+                val response = usuarioRepository.getUsuarios()
+                Log.d("API Response", "Response body: ${response.body()}")
+                response.body()?.let {
+                    Log.d("API Response", it.toString())
                 }
+
+                if (response.isSuccessful) {
+                    _usuarioList.value = response.body() ?: emptyList()
+                } else {
+                    println("Error: ${response.message()}")
+                }
+            } catch(e: Exception) {
+                println("Error al obtener datos: ${e.localizedMessage}")
+            }
         }
     }
 

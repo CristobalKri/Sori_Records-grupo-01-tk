@@ -52,11 +52,6 @@ fun CarritoScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        val items = listOf(
-            "Man's Best Friend D2C Luxe Packaging LP" to 56990,
-            "Short n' Sweet Alternate Cover CD" to 14990,
-            "The Crux Deluxe Cassette" to 19990
-        )
 
         LazyColumn(
             modifier = Modifier

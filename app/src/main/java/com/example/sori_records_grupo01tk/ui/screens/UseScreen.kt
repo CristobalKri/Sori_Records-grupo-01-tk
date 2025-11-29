@@ -7,22 +7,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UseScreen(usuarioViewModel: UsuarioViewModel) {
+fun UseScreen(albumViewModel: AlbumViewModel) {
 
 
     LaunchedEffect(Unit) {
-        usuarioViewModel.fetchUsuarios()
+        albumViewModel.fetchAlbums()
     }
 
-    val usuarioList = usuarioViewModel.usuarioList.collectAsState().value
+    val albumList = albumViewModel.albumList.collectAsState().value
 
     LazyColumn {
-        items(usuarioList) { usuario ->
-            Text("id: ${usuario.id}, Name: ${usuario.nombre}, Email: ${usuario.correo}, Contraseña: ${usuario.clave}")
+        items(albumList) { album ->
+            Text("id: ${album.id}, Name: ${album.title}, artista: ${album.artista}, Descripcion: ${album.descri}")
         }
     }
 }
