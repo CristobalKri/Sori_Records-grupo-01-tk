@@ -1,4 +1,4 @@
-package com.example.sori_records_grupo01tk.ui.components
+package com.example.sori_records_grupo01tk.viewmodel
 
 import com.example.sori_records_grupo01tk.model.Song
 
