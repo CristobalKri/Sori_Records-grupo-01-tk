@@ -90,11 +90,11 @@ public class UsuarioController {
 
         if (existingUsuarioOpt.isPresent()) {
             Usuario existingUsuario = existingUsuarioOpt.get();
-            // existingUsuario.setId(updatedUsuario.getId());
-            // existingUsuario.setUserName(updatedUsuario.getUserName());
-            // existingUsuario.setPassword(updatedUsuario.getPassword());
-            // existingUsuario.setEmail(updatedUsuario.getEmail());
-            // existingUsuario.setAddress(updatedUsuario.getAddress());
+            existingUsuario.setId(updatedUsuario.getId());
+            existingUsuario.setUserName(updatedUsuario.getUserName());
+            existingUsuario.setPassword(updatedUsuario.getPassword());
+            existingUsuario.setEmail(updatedUsuario.getEmail());
+            existingUsuario.setAddress(updatedUsuario.getAddress());
             
             Usuario savedUsuario = usuarioService.saveUsuario(existingUsuario);
             return new ResponseEntity<>(savedUsuario, HttpStatus.OK);

@@ -26,24 +26,27 @@ public class Album {
     private String title;
 
     @Column(nullable=false)
-    private String descripcion;
-
-    @Column(nullable=false)
-    private String cover;
-    
-
-    @Column(nullable=false)
     private String artista;
 
     @Column(nullable=false)
-    private String tipo; // Should be its own entity but idk if it is necessary to do it rn
+    private String cover;
+
+    @Column(nullable=false)
+    private int precio;
+
+    @Column(nullable=false)
+    private String descri;
+
+    @Column(nullable=false)
+    private String tipo;
 
 
-    public Album(String title, String descripcion, String cover, String artista, String tipo) {
+    public Album(String title, String artista, String cover, int precio, String descri, String tipo) {
         this.title = title;
-        this.descripcion = descripcion;
-        this.cover = cover;
         this.artista = artista;
+        this.cover = cover;
+        this.precio = precio;
+        this.descri = descri;
         this.tipo = tipo;
     }
 

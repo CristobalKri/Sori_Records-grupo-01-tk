@@ -90,7 +90,7 @@ public class AlbumController {
         if (existingAlbumOpt.isPresent()) {
             Album existingAlbum = existingAlbumOpt.get();
             existingAlbum.setTitle(updatedAlbum.getTitle());
-            existingAlbum.setDescripcion(updatedAlbum.getDescripcion());
+            existingAlbum.setDescri(updatedAlbum.getDescri());
             existingAlbum.setArtista(updatedAlbum.getArtista());
             existingAlbum.setCover(updatedAlbum.getCover());
             existingAlbum.setCover(updatedAlbum.getCover());

@@ -32,11 +32,11 @@ public class DatabaseStartup {
         usuarioRepository.save(new Usuario("Nombre4", "Contraseña4", "Email4", "Direccion4"));
 
         //Albumes
-        albumRepository.save(new Album("Titulo1", "Desc1", "Cover1", "Artista1", "Tipo1"));
-        albumRepository.save(new Album("Titulo2", "Desc2", "Cover2", "Artista2", "Tipo2"));
-        albumRepository.save(new Album("Titulo3", "Desc3", "Cover3", "Artista3", "Tipo3"));
-        albumRepository.save(new Album("Titulo4", "Desc4", "Cover4", "Artista4", "Tipo4"));
-        albumRepository.save(new Album("Titulo5", "Desc5", "Cover5", "Artista5", "Tipo5"));
+        albumRepository.save(new Album("Titulo1", "Artista1", "Cover1", 1000, "Descri1", "Tipo1"));
+        albumRepository.save(new Album("Titulo2", "Artista2", "Cover2", 2000, "Descri2", "Tipo2"));
+        albumRepository.save(new Album("Titulo3", "Artista3", "Cover3", 3000, "Descri3", "Tipo3"));
+        albumRepository.save(new Album("Titulo4", "Artista4", "Cover4", 4000, "Descri4", "Tipo4"));
+        albumRepository.save(new Album("Titulo5", "Artista5", "Cover5", 5000, "Descri5", "Tipo5"));
 
     }
 }
