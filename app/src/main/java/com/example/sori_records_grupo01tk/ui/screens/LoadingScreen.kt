@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
+import androidx.compose.ui.platform.testTag // Testing import
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,6 +33,7 @@ fun LoadingScreen(
     }
     Box (modifier = Modifier
         .fillMaxSize()
+        .testTag("progressIndicator")
         .background(color = MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center){
         Column (horizontalAlignment = Alignment.CenterHorizontally){
