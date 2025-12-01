@@ -1,5 +1,6 @@
 package com.example.sori_records_grupo01tk.ui.components
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,25 +33,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.sori_records_grupo01tk.model.Album
+import com.example.sori_records_grupo01tk.model.AlbumTwo
 import com.example.sori_records_grupo01tk.model.CartItem
 import com.example.sori_records_grupo01tk.ui.theme.*
 import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
-import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 
 
 @Composable
-fun AlbumCard(album: Album,
-              navController: NavController,
-              cartViewModel: CartViewModel
+fun SecondAlbumCard(albumTwo: AlbumTwo,
 ){
-
-
     Card(
-        onClick = { navController.navigate("producto/${album.id}") },
         shape = RoundedCornerShape(5.dp),
         modifier = Modifier
             .width(170.dp)
@@ -69,8 +63,8 @@ fun AlbumCard(album: Album,
                 .fillMaxHeight()
         ){
             AsyncImage(
-                model = album.cover,
-                contentDescription = album.title,
+                model = albumTwo.cover,
+                contentDescription = albumTwo.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(120.dp)
@@ -97,14 +91,14 @@ fun AlbumCard(album: Album,
                     verticalArrangement = Arrangement.Center)
                 {
                     Text(
-                        album.title,
+                        albumTwo.title,
                         fontWeight = FontWeight.Bold,
                         maxLines = 2,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.background
                     )
                     Text(
-                        text = "$${album.precio}",
+                        text = "$${albumTwo.precio}",
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(top = 4.dp),
                         color = MaterialTheme.colorScheme.background
@@ -113,20 +107,7 @@ fun AlbumCard(album: Album,
             }
             Spacer(modifier = Modifier.height(6.dp))
 
-            Button(
-                onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio )) },
-                shape = RoundedCornerShape(6.dp),
-                modifier = Modifier
-                    .height(35.dp)
-                    .width(150.dp) ,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = PrimaryColor,
-                    contentColor = TextOnDark
-                ),
-                contentPadding = PaddingValues(0.dp)
-            ) {
-                Text("Agregar al carrito", fontSize = 13.sp)
-            }
+
         }
     }
 }

@@ -37,10 +37,17 @@ android {
     buildFeatures {
         compose = true
     }
+
+
 }
 
 dependencies {
 
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")
@@ -56,6 +63,11 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.9.2")
     implementation("androidx.compose.material:material-icons-core")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("io.coil-kt:coil-compose:2.2.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -71,6 +83,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.text)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.core.ktx)
+    implementation(libs.androidx.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,4 +92,40 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Junit
+    testImplementation("junit:junit:4.13.2")
+
+    // Mockito
+    testImplementation("org.mockito:mockito-core:4.5.1")
+    testImplementation("org.mockito:mockito-inline:4.5.1")
+    androidTestImplementation("org.mockito:mockito-android:4.0.0")
+
+
+    // Junit & Espresso
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+
+    // UI Testing
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0")
+    androidTestImplementation("androidx.compose.material3:material3:1.0.0")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.5.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-manifest:1.4.0")
+
+    // LiveData
+    testImplementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    // Arch & Coroutines && Kotlin
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.30")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
+    // Mockk
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
 }

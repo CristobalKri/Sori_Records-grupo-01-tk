@@ -1,41 +1,28 @@
 package com.example.sori_records_grupo01tk.navigation
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.Text
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.datos.AlbumsList
+import com.example.sori_records_grupo01tk.datos.BillboardRepository
+import com.example.sori_records_grupo01tk.datos.RetrofitInstance
+//import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
-import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
 import com.example.sori_records_grupo01tk.ui.screens.CarritoScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
@@ -44,10 +31,17 @@ import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoCompletado
 import com.example.sori_records_grupo01tk.ui.screens.PerfilScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
-import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
-import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 import com.example.sori_records_grupo01tk.ui.components.DrawerContent
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
+import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
+import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
+import com.example.sori_records_grupo01tk.ui.screens.BillboardScreen
+import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
+import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModelFactory
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -57,7 +51,14 @@ fun AppNavigation(
 
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
+    val cartViewModel: CartViewModel = viewModel()
+    val albumViewModel: AlbumViewModel = viewModel()
 
+    val albumList = albumViewModel.albumList.collectAsState().value
+
+    val repository = BillboardRepository(RetrofitInstance.api)
+    val factory = BillboardViewModelFactory(repository)
+    val billboardViewModel: BillboardViewModel = viewModel(factory = factory)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -125,7 +126,26 @@ fun AppNavigation(
                             navController.navigate("perfil")
                             drawerState.close()
                         }
-                    }
+                    },
+                    onNavigateToAdminScreen = {
+                        scope.launch {
+                            navController.navigate("Acciones admin")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToLogoutScreen = {
+                        scope.launch {
+                            navController.navigate("logout")
+                            drawerState.close()
+                        }
+                    },
+                    onNavigateToBillboardScreen = {
+                        scope.launch {
+                            navController.navigate("billboard")
+                            drawerState.close()
+                        }
+                    },
+                    billboardViewModel = billboardViewModel
                 )
             }
         }
@@ -168,13 +188,10 @@ fun AppNavigation(
                 modifier = Modifier.padding(padding)
             ) {
                 composable("homescreen") {
-                    HomeScreen(navController)
+                    HomeScreen(navController, cartViewModel)
                 }
                 composable("registro") {
                     RegistroScreen(navController, usuarioViewModel)
-                }
-                composable("resumen") {
-                    ResumenScreen(usuarioViewModel)
                 }
                 composable("vinilos") {
                     Catalogot("Vinilo",navController )
@@ -187,13 +204,16 @@ fun AppNavigation(
                 }
                 composable("producto/{albumId}") { backStackEntry ->
                     val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
-                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
+                    val album = albumId?.let { albumList.find { it.id == albumId } }
                     album?.let {
                         ProductoScreen(navController = navController, album = it)
                     }
                 }
                 composable("carrito") {
-                    CarritoScreen(navController)
+                    CarritoScreen(navController, cartViewModel)
+                }
+                composable("pago") {
+                    PagoScreen(navController, usuarioViewModel)
                 }
                 composable("loading") {
                     LoadingScreen(navController)
@@ -202,13 +222,28 @@ fun AppNavigation(
                     PagoCompletado()
                 }
                 composable("buscador") {
-                    Buscador(albums = AlbumsList.albums, navController = navController)
+                    Buscador(albums = albumList, navController = navController)
                 }
                 composable("login") {
                     LoginScreen(navController, usuarioViewModel)
                 }
                 composable("perfil") {
                     PerfilScreen(navController)
+                }
+                composable("logout") {
+                    LogoutScreen(navController)
+                }
+                composable("Acciones admin") {
+                    AdminScreen(navController)
+                }
+                composable("addAlbum/{tipo}") { backStackEntry ->
+                    val tipo = backStackEntry.arguments?.getString("tipo") ?: "vinilo"
+                    AddAlbum(tipoPre = tipo, onSave = { newAlbum ->
+                        /*TODO*/
+                    }, navController)
+                }
+                composable("billboard") {
+                    BillboardScreen(billboardViewModel)
                 }
             }
         }

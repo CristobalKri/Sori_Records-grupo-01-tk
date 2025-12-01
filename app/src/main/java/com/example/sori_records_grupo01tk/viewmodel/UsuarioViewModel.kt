@@ -16,6 +16,7 @@ import kotlin.text.contains
 import kotlin.text.isBlank
 import com.example.sori_records_grupo01tk.datos.UserList
 import com.example.sori_records_grupo01tk.model.Usuario
+import com.example.sori_records_grupo01tk.repository.UsuarioRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -28,6 +29,84 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
     private val _login = MutableStateFlow(value = UsuarioUiState())
     val login: StateFlow<UsuarioUiState> = _login
 
+    private val usuarioRepository = UsuarioRepository()
+    private val _usuarioList = MutableStateFlow<List<Usuario>>(emptyList())
+    val usuarioList: StateFlow<List<Usuario>> = _usuarioList
+
+    private val _usuario = MutableStateFlow<Usuario?>(null)
+    val usuario: StateFlow<Usuario?> = _usuario
+
+    init {
+        fetchUsuarios()
+    }
+
+    fun fetchUsuarios() {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.getUsuarios()
+                Log.d("API Response", "Response body: ${response.body()}")
+                response.body()?.let {
+                    Log.d("API Response", it.toString())
+                }
+
+                if (response.isSuccessful) {
+                    _usuarioList.value = response.body() ?: emptyList()
+                } else {
+                    println("Error: ${response.message()}")
+                }
+            } catch(e: Exception) {
+                println("Error al obtener datos: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun getUsuarioById(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.getUsuario(id)
+                if (response.isSuccessful) {
+                    _usuario.value = response.body()
+                    Log.d("API Response", "Usuario fetched: ${_usuario.value}")
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al obtener el usuario: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun updateUsuario(id: Int, usuario: Usuario) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.updateUsuario(id, usuario)
+                if (response.isSuccessful) {
+                    Log.d("API Response", "Usuario actualizado: ${response.body()}")
+                    fetchUsuarios()
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al actualizar el usuario: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun deleteUsuario(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.deleteUsuario(id)
+                if (response.isSuccessful) {
+                    Log.d("API Response", "Usuario eliminado")
+                    fetchUsuarios()
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al eliminar el usuario: ${e.localizedMessage}")
+            }
+        }
+    }
 
 
 
@@ -105,7 +184,15 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
     fun validarLogin(): Boolean {
         val estadoActual = _login.value
 
-        val user = UserList.users.find { it.nombre == estadoActual.nombre && it.clave == estadoActual.clave }
+
+
+        val user = usuarioList.value.find { it.nombre == estadoActual.nombre && it.clave == estadoActual.clave }
+
+        if (user != null) {
+            Log.d("Login", "Login found on: ${user.nombre}")
+        } else {
+            Log.d("Login", "Invalid credentials ${user}")
+        }
 
         val errores = UsuarioErrores(
             nombre = when {

@@ -1,8 +1,11 @@
 package com.example.sori_records_grupo01tk.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Usuario(
-    val nombre: String?,
-    val clave: String?,
-    val correo: String?,
-    val direccion: String?
+    val id: Long?,
+    @SerializedName("userName") val nombre: String?,
+    @SerializedName("password") val clave: String?,
+    @SerializedName("email") val correo: String?,
+    @SerializedName("address") val direccion: String?
 )

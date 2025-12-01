@@ -34,30 +34,31 @@ import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.ui.theme.BackgroundDark
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
 import com.example.sori_records_grupo01tk.ui.components.Footer
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CarritoScreen(
-    navController: NavController
+    navController: NavController,
+    cartViewModel: CartViewModel
 ) {
+
+    val cartItems = cartViewModel.cartItems
+    val total = cartViewModel.getTotal()
+
     Column(
         modifier = Modifier
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
 
-        val items = listOf(
-            "Man's Best Friend D2C Luxe Packaging LP" to 56990,
-            "Short n' Sweet Alternate Cover CD" to 14990,
-            "The Crux Deluxe Cassette" to 19990
-        )
 
         LazyColumn(
             modifier = Modifier
                 .weight(1f),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(items) { (nombre, precio) ->
+            items(cartItems) { cartItem ->
                 Card(
                     shape = RoundedCornerShape(12.dp),
                     colors = CardDefaults.cardColors(
@@ -73,14 +74,14 @@ fun CarritoScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text(nombre,
+                            Text(cartItem.nombre,
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 13.sp,
                                 color = MaterialTheme.colorScheme.background)
-                            Text("$${precio}",
+                            Text("$${cartItem.price}",
                                 color = MaterialTheme.colorScheme.background)
                         }
-                        IconButton(onClick = { /* TODO */ }) {
+                        IconButton(onClick = { cartViewModel.removeItem(cartItem)}) {
                             Icon(
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = "Eliminar",
@@ -92,7 +93,6 @@ fun CarritoScreen(
             }
         }
 
-        val total = items.sumOf { it.second }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -104,7 +104,7 @@ fun CarritoScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
-                onClick = { navController.navigate("loading")},
+                onClick = { navController.navigate("pago")},
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(50.dp),

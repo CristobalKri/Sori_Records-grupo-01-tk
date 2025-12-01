@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.Footer
@@ -39,13 +40,13 @@ fun ProductoScreen(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         item {
-            Image(
-                painter = painterResource(id = album.cover),
+            AsyncImage(
+                model = album.cover,
                 contentDescription = album.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(220.dp)
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(8.dp))
             )
         }
 

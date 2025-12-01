@@ -1,6 +1,6 @@
 package com.example.sori_records_grupo01tk.model
 
-data class Album(
+data class AlbumTwo(
     val id: Int,
     val title: String,
     val artista: String,

@@ -13,7 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.sori_records_grupo01tk.datos.AlbumsList.albums
+import androidx.lifecycle.viewmodel.compose.viewModel
+//import com.example.sori_records_grupo01tk.datos.AlbumsList.albums
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.theme.Sori_RecordsGrupo01TKTheme
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
@@ -22,7 +23,10 @@ import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
 import com.example.sori_records_grupo01tk.ui.screens.LoginScreen
 import com.example.sori_records_grupo01tk.ui.screens.ProductoScreen
 import com.example.sori_records_grupo01tk.navigation.AppNavigation
+import com.example.sori_records_grupo01tk.ui.screens.UseScreen
 import com.example.sori_records_grupo01tk.ui.utils.SolicitarUbicacion
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
+import com.example.sori_records_grupo01tk.viewmodel.UsuarioViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

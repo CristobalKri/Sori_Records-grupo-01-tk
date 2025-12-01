@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -21,10 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.times
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.R
 import com.example.sori_records_grupo01tk.datos.AlbumsList
@@ -34,20 +37,28 @@ import com.example.sori_records_grupo01tk.ui.components.AlbumCard
 import com.example.sori_records_grupo01tk.ui.components.CaruselCard
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
+import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
-
-val randomAlbums = AlbumsHomeUtils.randomAlbums(5)
-val lastVinilos = AlbumsHomeUtils.lastPorTipo("Vinilo", 4)
-val lastCDs = AlbumsHomeUtils.lastPorTipo("CD", 4)
-val lastCassettes = AlbumsHomeUtils.lastPorTipo("Cassette", 4)
-val baratos = AlbumsHomeUtils.porPrecio(20000)
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    cartViewModel: CartViewModel
 ) {
+
+    val albumViewModel: AlbumViewModel = viewModel()
+    val albumList = albumViewModel.albumList.collectAsState().value
+
+
+    val randomAlbums = albumViewModel.randomAlbums(5)
+    val lastVinilos = albumViewModel.lastPorTipo("Vinilo", 4)
+    val lastCDs = albumViewModel.lastPorTipo("CD", 4)
+    val lastCassettes = albumViewModel.lastPorTipo("Cassette", 4)
+    val baratos = albumViewModel.porPrecio(20000)
 
 
     LazyVerticalGrid(
@@ -80,7 +91,9 @@ fun HomeScreen(
                             inclusive = false
                         }
                     }
-                }) {
+                },
+                    colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
+                        contentColor = TextOnDark)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -116,8 +129,8 @@ fun HomeScreen(
                 )
             }
         }
-        items(randomAlbums) { album ->
-            AlbumCard(album, navController=navController) }
+        items(albumList) { album ->
+            AlbumCard(album, navController=navController, cartViewModel) }
 
 
         //OFERTAS
@@ -140,7 +153,7 @@ fun HomeScreen(
             }
         }
         items(baratos) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
 
         //Nuevos Vinilos
@@ -163,7 +176,7 @@ fun HomeScreen(
             }
         }
         items(lastVinilos) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
         //Nuevos CDs
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -185,7 +198,7 @@ fun HomeScreen(
             }
         }
         items(lastCDs) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
         //Nuevos Cassettes
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -207,7 +220,7 @@ fun HomeScreen(
             }
         }
         items(lastCassettes) { album ->
-            AlbumCard(album,navController=navController) }
+            AlbumCard(album,navController=navController, cartViewModel) }
 
 
         //FOOTER
