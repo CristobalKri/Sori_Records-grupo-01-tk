@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
-import com.example.sori_records_grupo01tk.viewmodel.EstadoViewModel
 import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 import kotlinx.coroutines.Job
 
@@ -196,20 +195,20 @@ fun DrawerContent(
 
     Spacer(modifier = Modifier.height(8.dp))
 
-    NavigationDrawerItem(
-        label = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Settings, contentDescription = "Acciones Admin",
-                    modifier = Modifier.size(20.dp))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Acciones Admin")
-            }
-        },
-        selected = false,
-        onClick = { onNavigateToAdminScreen() }
-    )
-
-    Spacer(modifier = Modifier.height(8.dp))
+//    NavigationDrawerItem(
+//        label = {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(Icons.Default.Settings, contentDescription = "Acciones Admin",
+//                    modifier = Modifier.size(20.dp))
+//                Spacer(modifier = Modifier.width(8.dp))
+//                Text("Acciones Admin")
+//            }
+//        },
+//        selected = false,
+//        onClick = { onNavigateToAdminScreen() }
+//    )
+//
+//    Spacer(modifier = Modifier.height(8.dp))
 
     if (isLoggedIn.value) {
 

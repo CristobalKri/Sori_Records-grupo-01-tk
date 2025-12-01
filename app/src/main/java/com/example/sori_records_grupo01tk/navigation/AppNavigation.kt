@@ -189,9 +189,9 @@ fun AppNavigation(
                 composable("registro") {
                     RegistroScreen(navController, usuarioViewModel)
                 }
-                composable("resumen") {
-                    ResumenScreen(usuarioViewModel)
-                }
+//                composable("resumen") {
+//                    ResumenScreen(usuarioViewModel)
+//                }
                 composable("vinilos") {
                     Catalogot("Vinilo",navController )
                 }
@@ -201,13 +201,13 @@ fun AppNavigation(
                 composable("cassette") {
                     Catalogot("Cassette", navController)
                 }
-//                composable("producto/{albumId}") { backStackEntry ->
-//                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
-//                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
-//                    album?.let {
-//                        ProductoScreen(navController = navController, album = it)
-//                    }
-//                }
+                composable("producto/{albumId}") { backStackEntry ->
+                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
+                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
+                    album?.let {
+                        ProductoScreen(navController = navController, album = it)
+                    }
+                }
                 composable("carrito") {
                     CarritoScreen(navController, cartViewModel)
                 }
@@ -220,9 +220,9 @@ fun AppNavigation(
                 composable("pagoC") {
                     PagoCompletado()
                 }
-//                composable("buscador") {
-//                    Buscador(albums = AlbumsList.albums, navController = navController)
-//                }
+                composable("buscador") {
+                    Buscador(albums = AlbumsList.albums, navController = navController)
+                }
                 composable("login") {
                     LoginScreen(navController, usuarioViewModel)
                 }
