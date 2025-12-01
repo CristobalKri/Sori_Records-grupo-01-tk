@@ -43,6 +43,11 @@ android {
 
 dependencies {
 
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("org.osmdroid:osmdroid-android:6.1.15")
@@ -54,7 +59,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0-rc02")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.datastore:datastore-preferences:1.1.0")
     implementation("androidx.compose.runtime:runtime-livedata:1.9.2")
     implementation("androidx.compose.material:material-icons-core")
@@ -79,6 +84,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.core.ktx)
+    implementation(libs.androidx.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

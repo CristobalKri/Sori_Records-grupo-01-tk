@@ -16,6 +16,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.sori_records_grupo01tk.datos.AlbumsList
+import com.example.sori_records_grupo01tk.datos.BillboardRepository
+import com.example.sori_records_grupo01tk.datos.RetrofitInstance
 //import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
@@ -33,8 +36,11 @@ import com.example.sori_records_grupo01tk.ui.components.DrawerContent
 import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
 import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
+import com.example.sori_records_grupo01tk.ui.screens.BillboardScreen
 import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModelFactory
 import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 import kotlinx.coroutines.launch
 
@@ -50,6 +56,9 @@ fun AppNavigation(
 
     val albumList = albumViewModel.albumList.collectAsState().value
 
+    val repository = BillboardRepository(RetrofitInstance.api)
+    val factory = BillboardViewModelFactory(repository)
+    val billboardViewModel: BillboardViewModel = viewModel(factory = factory)
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -129,7 +138,14 @@ fun AppNavigation(
                             navController.navigate("logout")
                             drawerState.close()
                         }
-                    }
+                    },
+                    onNavigateToBillboardScreen = {
+                        scope.launch {
+                            navController.navigate("billboard")
+                            drawerState.close()
+                        }
+                    },
+                    billboardViewModel = billboardViewModel
                 )
             }
         }
@@ -225,6 +241,9 @@ fun AppNavigation(
                     AddAlbum(tipoPre = tipo, onSave = { newAlbum ->
                         /*TODO*/
                     }, navController)
+                }
+                composable("billboard") {
+                    BillboardScreen(billboardViewModel)
                 }
             }
         }

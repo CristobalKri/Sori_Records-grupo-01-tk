@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.sori_records_grupo01tk.viewmodel.BillboardViewModel
 import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
 import kotlinx.coroutines.Job
 
@@ -43,7 +45,9 @@ fun DrawerContent(
     onNavigateToPerfilScreen: () -> Unit,
     loginviewModel: LoginViewModel = viewModel(),
     onNavigateToAdminScreen: () -> Unit,
-    onNavigateToLogoutScreen: () -> Unit
+    onNavigateToLogoutScreen: () -> Unit,
+    onNavigateToBillboardScreen: () -> Unit,
+    billboardViewModel: BillboardViewModel? = null
 ) {
 
     val isLoggedIn = loginviewModel.booleanValue.collectAsState()
@@ -134,6 +138,17 @@ fun DrawerContent(
         onClick = { onNavigateToCarritoScreen() }
     )
 
+    NavigationDrawerItem(
+        label = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(Icons.Default.MailOutline, contentDescription = "Billboard")
+                Spacer(modifier = Modifier.width(8.dp))
+                Text("Billboard")
+            }
+        },
+        selected = false,
+        onClick = { onNavigateToBillboardScreen() }
+    )
 
     NavigationDrawerItem(
         label = {
@@ -180,20 +195,20 @@ fun DrawerContent(
 
     Spacer(modifier = Modifier.height(8.dp))
 
-    NavigationDrawerItem(
-        label = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Settings, contentDescription = "Acciones Admin",
-                    modifier = Modifier.size(20.dp))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Acciones Admin")
-            }
-        },
-        selected = false,
-        onClick = { onNavigateToAdminScreen() }
-    )
-
-    Spacer(modifier = Modifier.height(8.dp))
+//    NavigationDrawerItem(
+//        label = {
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(Icons.Default.Settings, contentDescription = "Acciones Admin",
+//                    modifier = Modifier.size(20.dp))
+//                Spacer(modifier = Modifier.width(8.dp))
+//                Text("Acciones Admin")
+//            }
+//        },
+//        selected = false,
+//        onClick = { onNavigateToAdminScreen() }
+//    )
+//
+//    Spacer(modifier = Modifier.height(8.dp))
 
     if (isLoggedIn.value) {
 
