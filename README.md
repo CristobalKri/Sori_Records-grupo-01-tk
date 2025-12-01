@@ -26,3 +26,7 @@ Cliente: Navegar y comprarAdmin: Gestión de catálogos, inventario y pedidos
 Productos de la tienda:
 
 CDsVinílosCassets
+
+Backend: https://github.com/CristobalKri/Sori_Records_Backend
+
+APK:https://drive.google.com/drive/folders/1g1Ph8kaBHIbotgxtYZWtFCZZoxdS8vPK?usp=drive_link
