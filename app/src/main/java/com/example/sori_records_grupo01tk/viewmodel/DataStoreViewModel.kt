@@ -38,7 +38,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    // Function to save boolean value
     fun saveBoolean(value: Boolean) {
         viewModelScope.launch {
             saveBooleanValue(getApplication(), value)

@@ -133,37 +133,37 @@ fun AddAlbum(
 
         val nextId = (AlbumsList.albums.maxOfOrNull { it.id } ?: 0) + 1
         //GUARDAR
-        Button(
-            onClick = {
-                val error = ValidarAddAlbum.validarAlbum(title, artista, precio, descri, tipo)
-
-                if (error != null) {
-                    Toast.makeText(context, error,
-                        Toast.LENGTH_LONG).show()
-                } else {
-                    val nuevoAlbum = Album(
-                        id = nextId,
-                        title = title,
-                        artista = artista,
-                        cover = R.drawable.img_error,
-                        precio = precio.toInt(),
-                        descri = descri,
-                        tipo = tipo
-                    )
-                    onSave(nuevoAlbum)
-                    Toast.makeText(context,
-                        "GUARDADO CON EXITO",
-                        Toast.LENGTH_LONG).show()
-                    navController.popBackStack()
-                }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
-            contentColor = TextOnDark)
-        ) {
-            Text("Guardar",
-                style = MaterialTheme.typography.bodyLarge)
-        }
+//        Button(
+//            onClick = {
+//                val error = ValidarAddAlbum.validarAlbum(title, artista, precio, descri, tipo)
+//
+//                if (error != null) {
+//                    Toast.makeText(context, error,
+//                        Toast.LENGTH_LONG).show()
+//                } else {
+//                    val nuevoAlbum = Album(
+//                        id = nextId,
+//                        title = title,
+//                        artista = artista,
+//                        cover = R.drawable.img_error,
+//                        precio = precio.toInt(),
+//                        descri = descri,
+//                        tipo = tipo
+//                    )
+//                    onSave(nuevoAlbum)
+//                    Toast.makeText(context,
+//                        "GUARDADO CON EXITO",
+//                        Toast.LENGTH_LONG).show()
+//                    navController.popBackStack()
+//                }
+//            },
+//            modifier = Modifier.fillMaxWidth(),
+//            colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
+//            contentColor = TextOnDark)
+//        ) {
+//            Text("Guardar",
+//                style = MaterialTheme.typography.bodyLarge)
+//        }
 
         Footer()
     }

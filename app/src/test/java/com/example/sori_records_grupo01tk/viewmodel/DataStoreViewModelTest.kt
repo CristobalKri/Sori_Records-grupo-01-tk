@@ -1,94 +1,96 @@
 package com.example.sori_records_grupo01tk.viewmodel
 
-import android.app.Application
+
 import android.content.Context
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.core.app.ApplicationProvider
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
+import com.example.sori_records_grupo01tk.datos.dataStore
 import com.example.sori_records_grupo01tk.datos.getBooleanValue
 import com.example.sori_records_grupo01tk.datos.getIntValue
 import com.example.sori_records_grupo01tk.datos.saveBooleanValue
 import com.example.sori_records_grupo01tk.datos.saveIntValue
-import com.example.sori_records_grupo01tk.viewmodel.LoginViewModel
-import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.*
-import org.junit.After
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.mockito.kotlin.*
+import org.mockito.Mockito
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class LoginViewModelTest {
+@ExperimentalCoroutinesApi
+class DataStoreTest {
 
-    @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()  // Ensures LiveData works synchronously in tests
+    private lateinit var mockContext: Context
+    private lateinit var dataStore: DataStore<Preferences>
 
-    private lateinit var viewModel: LoginViewModel
-    private val mockContext: Context = mock()
-
-    // Coroutine test dispatcher
-    private val testDispatcher = StandardTestDispatcher()
+    // Define the keys as in your main class
+    private val IS_LOGGED_IN = booleanPreferencesKey("isLoggedIn")
+    private val ID_KEY = intPreferencesKey("numero_key")
 
     @Before
-    fun setup() {
-        Dispatchers.setMain(testDispatcher)  // Set the main dispatcher for coroutines to use the test dispatcher
+    fun setUp() {
 
-        // Mocking the dataStore functions to return mock flows
-        whenever(getBooleanValue(mockContext)).thenReturn(flowOf(true))
-        whenever(getIntValue(mockContext)).thenReturn(flowOf(42))
+        mockContext = mock()
 
-        // Initialize the ViewModel
-        val mockContext: Application = ApplicationProvider.getApplicationContext()
+        dataStore = mock()
+
+
+        whenever(mockContext.dataStore).thenReturn(dataStore)
     }
 
     @Test
-    fun `test boolean value flow updates correctly`() = runTest {
-        // Wait until everything is done
-        advanceUntilIdle()
+    fun testSaveBooleanValue() = runTest {
+        val mockPreferences = mock<Preferences> {
+            on { this[IS_LOGGED_IN] } doReturn false
+        }
 
-        // Check the value in the ViewModel after the flow updates
-        assert(viewModel.booleanValue.value == true)
+
+        saveBooleanValue(mockContext, true)
+
+
+        verify(dataStore).edit(any())
     }
 
     @Test
-    fun `test int value flow updates correctly`() = runTest {
-        // Wait until everything is done
-        advanceUntilIdle()
+    fun testGetBooleanValue() = runTest {
 
-        // Check the value in the ViewModel after the flow updates
-        assert(viewModel.numeroValue.value == 42)
+        val mockPreferences = mock<Preferences> {
+            on { this[IS_LOGGED_IN] } doReturn true
+        }
+
+
+        whenever(mockContext.dataStore.data).thenReturn(flowOf(mockPreferences))
+
+        val result = getBooleanValue(mockContext).first()
+
+
+        assertTrue(result)
     }
 
     @Test
-    fun `test saveBoolean updates value correctly`() = runTest {
-        // Call the suspend function saveBoolean within the coroutine scope
-        viewModel.saveBoolean(false)
+    fun testSaveAndRetrieveIntValue() = runTest {
+        val mockPreferences = mock<Preferences> {
+            on { this[ID_KEY] } doReturn 5
+        }
 
-        // Wait for coroutines to finish
-        advanceUntilIdle()
 
-        // Verify that saveBooleanValue was called with the correct value
-        verify { runBlocking { saveBooleanValue(mockContext, false) } }
+        saveIntValue(mockContext, 10)
+
+
+        val result = getIntValue(mockContext).first()
+
+
+        assertEquals(10, result)
     }
 
-    @Test
-    fun `test saveInt updates value correctly`() = runTest {
-        // Call the suspend function saveInt within the coroutine scope
-        viewModel.saveInt(99)
-
-        // Wait for coroutines to finish
-        advanceUntilIdle()
-
-        // Verify that saveIntValue was called with the correct value
-        verify { runBlocking { saveIntValue(mockContext, 99) } }
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()  // Reset the dispatcher after tests to avoid side effects
-    }
 }

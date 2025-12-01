@@ -33,6 +33,9 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
     private val _usuarioList = MutableStateFlow<List<Usuario>>(emptyList())
     val usuarioList: StateFlow<List<Usuario>> = _usuarioList
 
+    private val _usuario = MutableStateFlow<Usuario?>(null)
+    val usuario: StateFlow<Usuario?> = _usuario
+
     init {
         fetchUsuarios()
     }
@@ -53,6 +56,54 @@ class UsuarioViewModel(application: Application)  : AndroidViewModel(application
                 }
             } catch(e: Exception) {
                 println("Error al obtener datos: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun getUsuarioById(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.getUsuario(id)
+                if (response.isSuccessful) {
+                    _usuario.value = response.body()
+                    Log.d("API Response", "Usuario fetched: ${_usuario.value}")
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al obtener el usuario: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun updateUsuario(id: Int, usuario: Usuario) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.updateUsuario(id, usuario)
+                if (response.isSuccessful) {
+                    Log.d("API Response", "Usuario actualizado: ${response.body()}")
+                    fetchUsuarios()
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al actualizar el usuario: ${e.localizedMessage}")
+            }
+        }
+    }
+
+    fun deleteUsuario(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = usuarioRepository.deleteUsuario(id)
+                if (response.isSuccessful) {
+                    Log.d("API Response", "Usuario eliminado")
+                    fetchUsuarios()
+                } else {
+                    Log.e("API Error", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("API Error", "Error al eliminar el usuario: ${e.localizedMessage}")
             }
         }
     }
