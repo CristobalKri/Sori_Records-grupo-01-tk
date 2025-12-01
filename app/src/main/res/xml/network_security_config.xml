@@ -4,5 +4,6 @@
         <domain includeSubdomains="true">10.0.2.2</domain> <!-- For Android Emulator -->
         <domain includeSubdomains="true">localhost</domain> <!-- For Real Devices -->
         <domain includeSubdomains="true">192.168.100.8</domain>
+        <domain includeSubdomains="true">https://web-attempt.onrender.com</domain>
     </domain-config>
 </network-security-config>
