@@ -26,6 +26,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.R
 import com.example.sori_records_grupo01tk.datos.AlbumsList
@@ -44,6 +46,7 @@ import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
 import com.example.sori_records_grupo01tk.ui.utils.ValidarAddAlbum
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +56,11 @@ fun AddAlbum(
     navController: NavController
 ) {
     val context = LocalContext.current
+
+    val albumViewModel: AlbumViewModel = viewModel()
+    val albumList = albumViewModel.albumList.collectAsState().value
+
+
 
     //por ahora
     var title by remember { mutableStateOf("") }
@@ -131,39 +139,39 @@ fun AddAlbum(
 
 
 
-        val nextId = (AlbumsList.albums.maxOfOrNull { it.id } ?: 0) + 1
-        //GUARDAR
-//        Button(
-//            onClick = {
-//                val error = ValidarAddAlbum.validarAlbum(title, artista, precio, descri, tipo)
-//
-//                if (error != null) {
-//                    Toast.makeText(context, error,
-//                        Toast.LENGTH_LONG).show()
-//                } else {
-//                    val nuevoAlbum = Album(
-//                        id = nextId,
-//                        title = title,
-//                        artista = artista,
-//                        cover = R.drawable.img_error,
-//                        precio = precio.toInt(),
-//                        descri = descri,
-//                        tipo = tipo
-//                    )
-//                    onSave(nuevoAlbum)
-//                    Toast.makeText(context,
-//                        "GUARDADO CON EXITO",
-//                        Toast.LENGTH_LONG).show()
-//                    navController.popBackStack()
-//                }
-//            },
-//            modifier = Modifier.fillMaxWidth(),
-//            colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
-//            contentColor = TextOnDark)
-//        ) {
-//            Text("Guardar",
-//                style = MaterialTheme.typography.bodyLarge)
-//        }
+        val nextId = (albumList.maxOfOrNull { it.id } ?: 0) + 1
+        // GUARDAR
+        Button(
+            onClick = {
+                val error = ValidarAddAlbum.validarAlbum(title, artista, precio, descri, tipo)
+
+                if (error != null) {
+                    Toast.makeText(context, error,
+                        Toast.LENGTH_LONG).show()
+                } else {
+                    val nuevoAlbum = Album(
+                        id = nextId,
+                        title = title,
+                        artista = artista,
+                        cover = "Template",
+                        precio = precio.toInt(),
+                        descri = descri,
+                        tipo = tipo
+                    )
+                    onSave(nuevoAlbum)
+                    Toast.makeText(context,
+                        "GUARDADO CON EXITO",
+                        Toast.LENGTH_LONG).show()
+                    navController.popBackStack()
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor,
+            contentColor = TextOnDark)
+        ) {
+            Text("Guardar",
+                style = MaterialTheme.typography.bodyLarge)
+        }
 
         Footer()
     }

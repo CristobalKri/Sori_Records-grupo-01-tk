@@ -4,7 +4,7 @@ data class Album(
     val id: Int,
     val title: String,
     val artista: String,
-    val cover: Int,
+    val cover: String,
     val precio: Int,
     val descri: String,
     val tipo: String

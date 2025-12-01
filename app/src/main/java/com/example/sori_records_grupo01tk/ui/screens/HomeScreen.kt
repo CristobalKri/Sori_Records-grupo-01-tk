@@ -22,10 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.times
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.sori_records_grupo01tk.R
 import com.example.sori_records_grupo01tk.datos.AlbumsList
@@ -36,14 +38,9 @@ import com.example.sori_records_grupo01tk.ui.components.CaruselCard
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.PrimaryColor
 import com.example.sori_records_grupo01tk.ui.theme.TextOnDark
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
-
-val randomAlbums = AlbumsHomeUtils.randomAlbums(5)
-val lastVinilos = AlbumsHomeUtils.lastPorTipo("Vinilo", 4)
-val lastCDs = AlbumsHomeUtils.lastPorTipo("CD", 4)
-val lastCassettes = AlbumsHomeUtils.lastPorTipo("Cassette", 4)
-val baratos = AlbumsHomeUtils.porPrecio(20000)
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +49,16 @@ fun HomeScreen(
     navController: NavController,
     cartViewModel: CartViewModel
 ) {
+
+    val albumViewModel: AlbumViewModel = viewModel()
+    val albumList = albumViewModel.albumList.collectAsState().value
+
+
+    val randomAlbums = albumViewModel.randomAlbums(5)
+    val lastVinilos = albumViewModel.lastPorTipo("Vinilo", 4)
+    val lastCDs = albumViewModel.lastPorTipo("CD", 4)
+    val lastCassettes = albumViewModel.lastPorTipo("Cassette", 4)
+    val baratos = albumViewModel.porPrecio(20000)
 
 
     LazyVerticalGrid(
@@ -122,7 +129,7 @@ fun HomeScreen(
                 )
             }
         }
-        items(randomAlbums) { album ->
+        items(albumList) { album ->
             AlbumCard(album, navController=navController, cartViewModel) }
 
 

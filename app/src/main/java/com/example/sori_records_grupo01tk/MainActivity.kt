@@ -39,8 +39,6 @@ class MainActivity : ComponentActivity() {
             ) {
                 SolicitarUbicacion()
                 AppNavigation()
-/*                val albumViewModel: AlbumViewModel = viewModel()
-                UseScreen(albumViewModel)*/
                 }
             }
         }

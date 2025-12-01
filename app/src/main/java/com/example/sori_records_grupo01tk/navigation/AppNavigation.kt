@@ -7,6 +7,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -19,7 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.sori_records_grupo01tk.ui.components.Buscador
 import com.example.sori_records_grupo01tk.ui.components.TopBar
 import com.example.sori_records_grupo01tk.ui.screen.RegistroScreen
-import com.example.sori_records_grupo01tk.ui.screen.ResumenScreen
 import com.example.sori_records_grupo01tk.ui.screens.CarritoScreen
 import com.example.sori_records_grupo01tk.ui.screens.Catalogot
 import com.example.sori_records_grupo01tk.ui.screens.HomeScreen
@@ -35,6 +35,7 @@ import com.example.sori_records_grupo01tk.ui.screens.AddAlbum
 import com.example.sori_records_grupo01tk.ui.screens.AdminScreen
 import com.example.sori_records_grupo01tk.ui.screens.LogoutScreen
 import com.example.sori_records_grupo01tk.ui.screens.PagoScreen
+import com.example.sori_records_grupo01tk.viewmodel.AlbumViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -45,6 +46,9 @@ fun AppNavigation(
     val navController = rememberNavController()
     val usuarioViewModel: UsuarioViewModel = viewModel()
     val cartViewModel: CartViewModel = viewModel()
+    val albumViewModel: AlbumViewModel = viewModel()
+
+    val albumList = albumViewModel.albumList.collectAsState().value
 
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -173,9 +177,6 @@ fun AppNavigation(
                 composable("registro") {
                     RegistroScreen(navController, usuarioViewModel)
                 }
-                composable("resumen") {
-                    ResumenScreen(usuarioViewModel)
-                }
                 composable("vinilos") {
                     Catalogot("Vinilo",navController )
                 }
@@ -185,13 +186,13 @@ fun AppNavigation(
                 composable("cassette") {
                     Catalogot("Cassette", navController)
                 }
-//                composable("producto/{albumId}") { backStackEntry ->
-//                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
-//                    val album = albumId?.let { AlbumsList.albums.find { it.id == albumId } }
-//                    album?.let {
-//                        ProductoScreen(navController = navController, album = it)
-//                    }
-//                }
+                composable("producto/{albumId}") { backStackEntry ->
+                    val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
+                    val album = albumId?.let { albumList.find { it.id == albumId } }
+                    album?.let {
+                        ProductoScreen(navController = navController, album = it)
+                    }
+                }
                 composable("carrito") {
                     CarritoScreen(navController, cartViewModel)
                 }
@@ -204,9 +205,9 @@ fun AppNavigation(
                 composable("pagoC") {
                     PagoCompletado()
                 }
-//                composable("buscador") {
-//                    Buscador(albums = AlbumsList.albums, navController = navController)
-//                }
+                composable("buscador") {
+                    Buscador(albums = albumList, navController = navController)
+                }
                 composable("login") {
                     LoginScreen(navController, usuarioViewModel)
                 }

@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.model.Usuario
 import com.example.sori_records_grupo01tk.repository.AlbumRepository
@@ -93,5 +94,22 @@ class AlbumViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
+    fun randomAlbums(cantidad: Int): List<Album> {
+        val albums = albumList.value
+        return if (cantidad >= albums.size) albums else albums.shuffled().take(cantidad)
+    }
+
+    fun lastPorTipo(tipo: String, cantidad: Int): List<Album> {
+        val albums = albumList.value
+        return albums
+            .filter { it.tipo.equals(tipo) }
+            .takeLast(cantidad)
+    }
+
+    fun porPrecio(maxPrecio: Int): List<Album> {
+        val albums = albumList.value
+        return albums.filter { it.precio <= maxPrecio }
+    }
 
 }
