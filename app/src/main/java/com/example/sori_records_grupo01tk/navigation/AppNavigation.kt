@@ -213,7 +213,7 @@ fun AppNavigation(
                     CarritoScreen(navController, cartViewModel)
                 }
                 composable("pago") {
-                    PagoScreen(navController, usuarioViewModel)
+                    PagoScreen(navController, usuarioViewModel, cartViewModel)
                 }
                 composable("loading") {
                     LoadingScreen(navController)
