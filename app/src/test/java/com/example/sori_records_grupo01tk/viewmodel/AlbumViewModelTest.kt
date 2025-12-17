@@ -39,7 +39,7 @@ class AlbumApiServiceTest {
     @Test
     fun `getAlbums returns a list of albums`() = runTest {
         val mockAlbumList = listOf(
-            Album(id = 1, title = "Titulo1", artista = "Artista1", cover = 1, precio = 10000, descri = "Descri1", tipo = "Casette")
+            Album(id = 1, title = "Titulo1", artista = "Artista1", cover = "FakeFoto", precio = 10000, descri = "Descri1", tipo = "Casette")
         )
         val mockResponse = MockResponse()
             .setResponseCode(200)
@@ -58,7 +58,7 @@ class AlbumApiServiceTest {
 
     @Test
     fun `getAlbum returns a single album`() = runTest {
-        val mockAlbum = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = 1, precio = 10000, descri = "Descri1", tipo = "Casette")
+        val mockAlbum = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = "FakeFoto", precio = 10000, descri = "Descri1", tipo = "Casette")
         val mockResponse = MockResponse()
             .setResponseCode(200)
             .setBody(gson.toJson(mockAlbum))
@@ -76,7 +76,7 @@ class AlbumApiServiceTest {
 
     @Test
     fun `updateAlbum sends an album and gets it back`() = runTest {
-        val albumToUpdate = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = 1, precio = 10000, descri = "Descri1", tipo = "Casette")
+        val albumToUpdate = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = "FakeFoto", precio = 10000, descri = "Descri1", tipo = "Casette")
         val mockResponse = MockResponse()
             .setResponseCode(200)
             .setBody(gson.toJson(albumToUpdate))
@@ -96,7 +96,7 @@ class AlbumApiServiceTest {
 
     @Test
     fun `deleteAlbum completes successfully`() = runTest {
-        val albumToDelete = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = 1, precio = 10000, descri = "Descri1", tipo = "Casette")
+        val albumToDelete = Album(id = 1, title = "Titulo1", artista = "Artista1", cover = "FakeFoto", precio = 10000, descri = "Descri1", tipo = "Casette")
         val mockResponse = MockResponse()
             .setResponseCode(204) // No Content
             .setBody("")
