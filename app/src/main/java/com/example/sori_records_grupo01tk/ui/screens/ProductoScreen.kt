@@ -1,35 +1,51 @@
 package com.example.sori_records_grupo01tk.ui.screens
 
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.sori_records_grupo01tk.datos.AlbumsList
 import com.example.sori_records_grupo01tk.model.Album
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
+import com.example.sori_records_grupo01tk.ui.utils.MapUtils
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.maps.android.compose.MapUiSettings
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductoScreen(
     navController: NavController,
     album: Album) {
+    val context = LocalContext.current
 
-    val tiendas = listOf("Sori Records 1", "Sori Records 2", "Sori Records 3")
+    var userLocation by remember { mutableStateOf<LatLng?>(null) }
+    LaunchedEffect(Unit) { MapUtils.getUserLoc(context) {
+        location -> userLocation = location } }
+
 
 
     LazyColumn(
@@ -97,45 +113,6 @@ fun ProductoScreen(
             HorizontalDivider(thickness = 2.dp)
 
             Text(
-                "Disponible en las siguientes tiendas:",
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                tiendas.forEach { tienda ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(60.dp),
-                        shape = RoundedCornerShape(8.dp),
-                        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = SecondaryColor,
-                            contentColor = TextOnDark
-                        )
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.CenterStart,
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        ) {
-                            Text(
-                                tienda,
-                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        item {
-            HorizontalDivider(thickness = 2.dp)
-
-            Text(
                 "MAPA",
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
@@ -145,14 +122,51 @@ fun ProductoScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
-                contentAlignment = Alignment.Center
+                    .height(250.dp)
             ) {
-                Text(
-                    text = "Acceder a la ubicación",
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
-                )
+                GoogleMap(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp),
+
+                    cameraPositionState = rememberCameraPositionState {
+                        position = CameraPosition.fromLatLngZoom(
+                            userLocation ?: LatLng(-33.4489, -70.6693), 12f
+                        )
+                    },
+                    uiSettings = MapUiSettings(
+                        zoomControlsEnabled = true, // boton zoom
+                        scrollGesturesEnabled = true, // arrastre
+                        zoomGesturesEnabled = true// zoom
+                    )
+                ) {
+                    // Marker usuario
+                    userLocation?.let {
+                        Marker(
+                            state = MarkerState(position = it),
+                            title = "Tu ubicación",
+                            snippet = "Aquí estás"
+                        )
+                    }
+
+                    // Markers tiendas
+                    val tiendas = listOf(
+                        LatLng(-33.429212106205924, -70.60679014692948),
+                        LatLng(-33.43916361678069, -70.65757205124416),
+                        LatLng(-33.366178816240065, -70.6783361905047)
+                    )
+
+                    tiendas.forEachIndexed { index, cords ->
+                        val distancia = userLocation?.let { MapUtils.calcularDist(it, cords) }
+                        Marker(
+                            state = MarkerState(position = cords),
+                            title = "Sori Records ${index + 1}",
+                            snippet = distancia?.let { "A ${it.toInt()} metros" }
+                                ?: "Ubicación aproximada",
+                            icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)
+                        )
+                    }
+                }
             }
         }
 
