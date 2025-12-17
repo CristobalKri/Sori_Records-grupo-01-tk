@@ -20,12 +20,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.sori_records_grupo01tk.model.Album
+import com.example.sori_records_grupo01tk.model.CartItem
 import com.example.sori_records_grupo01tk.ui.components.Footer
 import com.example.sori_records_grupo01tk.ui.theme.*
 import com.example.sori_records_grupo01tk.ui.utils.MapUtils
+import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
@@ -39,7 +42,8 @@ import com.google.maps.android.compose.MapUiSettings
 @Composable
 fun ProductoScreen(
     navController: NavController,
-    album: Album) {
+    album: Album,
+    cartViewModel: CartViewModel = viewModel()) {
     val context = LocalContext.current
 
     var userLocation by remember { mutableStateOf<LatLng?>(null) }
@@ -98,7 +102,8 @@ fun ProductoScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { /* TODO */ },
+                    onClick = { cartViewModel.addItem(CartItem(album.id, album.title, album.precio)) },
+                    shape = RoundedCornerShape(6.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = SecondaryColor,
                         contentColor = TextOnDark

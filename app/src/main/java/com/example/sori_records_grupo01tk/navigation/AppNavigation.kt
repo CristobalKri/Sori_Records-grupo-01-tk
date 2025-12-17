@@ -194,19 +194,19 @@ fun AppNavigation(
                     RegistroScreen(navController, usuarioViewModel)
                 }
                 composable("vinilos") {
-                    Catalogot("Vinilo",navController )
+                    Catalogot("Vinilo",navController, cartViewModel )
                 }
                 composable("cds") {
-                    Catalogot("CD", navController)
+                    Catalogot("CD", navController, cartViewModel)
                 }
                 composable("cassette") {
-                    Catalogot("Cassette", navController)
+                    Catalogot("Cassette", navController, cartViewModel)
                 }
                 composable("producto/{albumId}") { backStackEntry ->
                     val albumId = backStackEntry.arguments?.getString("albumId")?.toIntOrNull()
                     val album = albumId?.let { albumList.find { it.id == albumId } }
                     album?.let {
-                        ProductoScreen(navController = navController, album = it)
+                        ProductoScreen(navController = navController, album = it, cartViewModel)
                     }
                 }
                 composable("carrito") {

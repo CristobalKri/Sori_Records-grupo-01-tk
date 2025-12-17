@@ -27,7 +27,8 @@ import com.example.sori_records_grupo01tk.viewmodel.CartViewModel
 
 @Composable
 fun Catalogot(tipo:String,
-              navController: NavController)
+              navController: NavController,
+              cartViewModel: CartViewModel = viewModel())
 {
 
     val albumViewModel: AlbumViewModel = viewModel()
